@@ -146,7 +146,7 @@ const PolicyDetailsPremium = () => {
       {/* Header Section */}
       <Box
         sx={{
-          background: `linear-gradient(135deg, ${policyColor} 0%, #1B75BB 100%)`,
+          background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 100%)',
           pt: 4,
           pb: 8,
         }}
