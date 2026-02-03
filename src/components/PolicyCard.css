@@ -1,0 +1,94 @@
+.policy-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.policy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.policy-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.policy-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.policy-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.policy-title-section {
+  flex: 1;
+}
+
+.policy-product-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000d1a;
+}
+
+.policy-number {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.875rem;
+  color: #666;
+  font-family: monospace;
+}
+
+.policy-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.policy-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.detail-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #000d1a;
+  text-align: right;
+}
+
+.policy-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.policy-view-button {
+  background: transparent;
+  border: none;
+  color: #0067b3;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.policy-view-button:hover {
+  color: #004d84;
+  text-decoration: underline;
+}

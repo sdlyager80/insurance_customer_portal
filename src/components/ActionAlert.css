@@ -1,0 +1,74 @@
+.action-alert-container {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-alert-container:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.alert-error {
+  border-left-color: #d32f2f;
+}
+
+.alert-warning {
+  border-left-color: #f57c00;
+}
+
+.alert-info {
+  border-left-color: #0288d1;
+}
+
+.alert-success {
+  border-left-color: #388e3c;
+}
+
+.action-alert-content {
+  width: 100%;
+}
+
+.action-alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.action-title-section {
+  flex: 1;
+}
+
+.action-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000d1a;
+}
+
+.action-policy {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.75rem;
+  color: #666;
+  font-family: monospace;
+}
+
+.action-description {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.action-due-date {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #d32f2f;
+}
