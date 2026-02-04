@@ -33,6 +33,7 @@ import {
 } from '@mui/icons-material';
 import type { Policy, Illustration } from '../types/policy';
 import { policyApi, illustrationApi } from '../services/mockApi';
+import IllustrationRequestDialog from '../components/IllustrationRequestDialog';
 
 const PolicyDetailsPremium = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,6 +41,7 @@ const PolicyDetailsPremium = () => {
   const [policy, setPolicy] = useState<Policy | null>(null);
   const [illustrations, setIllustrations] = useState<Illustration[]>([]);
   const [loading, setLoading] = useState(true);
+  const [illustrationDialogOpen, setIllustrationDialogOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,10 +83,36 @@ const PolicyDetailsPremium = () => {
   };
 
 
-  const handleIllustrationRequest = () => {
+  const handleIllustrationRequestExternal = () => {
     // Redirect to external illustration UI
     const illustrationUrl = 'https://illustrations-ui.dev-1.hub-1.illus-dev.assure.dxc.com/index.html?type=UniversalLifeProducts&id=31fb4f17-ad3d-4f8f-9caa-e6e4f32322b1#/';
     window.open(illustrationUrl, '_blank');
+  };
+
+  const handleIllustrationRequestDialog = () => {
+    setIllustrationDialogOpen(true);
+  };
+
+  const handleIllustrationSubmit = async (requestData: any) => {
+    if (!policy) return;
+
+    try {
+      await illustrationApi.createIllustrationRequest({
+        policyId: policy.id,
+        policyNumber: policy.policyNumber,
+        requestedBy: `${policy.insured.firstName} ${policy.insured.lastName}`,
+        requestType: requestData.requestType,
+        scenarioType: requestData.scenarioType,
+        projectionYears: requestData.projectionYears,
+        additionalPremium: requestData.additionalPremium,
+        notes: requestData.notes,
+      });
+
+      alert('Illustration request submitted successfully! You will be notified when it\'s ready.');
+    } catch (error) {
+      console.error('Error submitting illustration request:', error);
+      alert('Failed to submit illustration request. Please try again.');
+    }
   };
 
   if (loading) {
@@ -184,7 +212,7 @@ const PolicyDetailsPremium = () => {
                 variant="contained"
                 size="large"
                 startIcon={<RequestQuote />}
-                onClick={handleIllustrationRequest}
+                onClick={handleIllustrationRequestExternal}
                 sx={{
                   bgcolor: 'white',
                   color: policyColor,
@@ -474,7 +502,7 @@ const PolicyDetailsPremium = () => {
                   <Button
                     startIcon={<RequestQuote />}
                     variant="contained"
-                    onClick={handleIllustrationRequest}
+                    onClick={handleIllustrationRequestDialog}
                     sx={{
                       bgcolor: '#1B75BB',
                       '&:hover': {
@@ -529,6 +557,15 @@ const PolicyDetailsPremium = () => {
           )}
       </Container>
 
+      {/* Illustration Request Dialog */}
+      {policy && (
+        <IllustrationRequestDialog
+          open={illustrationDialogOpen}
+          onClose={() => setIllustrationDialogOpen(false)}
+          policy={policy}
+          onSubmit={handleIllustrationSubmit}
+        />
+      )}
     </Box>
   );
 };
