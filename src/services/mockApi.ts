@@ -8,7 +8,7 @@ export const mockPolicies: Policy[] = [
     type: 'life',
     productName: 'Universal Life Insurance',
     status: 'active',
-    effectiveDate: '2024-01-15',
+    effectiveDate: '2005-12-31',
     premium: 83.33,
     coverageAmount: 200000,
     paymentFrequency: 'monthly',
@@ -18,10 +18,10 @@ export const mockPolicies: Policy[] = [
       lastName: 'Smith',
       dateOfBirth: '1985-06-15',
       address: {
-        street: '123 Main Street',
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701'
+        street: '1234 Lone Star Drive',
+        city: 'Austin',
+        state: 'TX',
+        zipCode: '78701'
       },
       phone: '(555) 123-4567',
       email: 'john.smith@email.com'
@@ -346,15 +346,15 @@ const mockIllustration: Illustration = {
     insuredName: 'John Charles Smith',
     age: 30,
     gender: 'Male',
-    issueDate: '2024-01-15',
+    issueDate: '2005-12-31',
     productName: 'Universal Life Insurance',
     faceAmount: 200000,
     modalPremium: 1000,
     premiumMode: 'Annual',
   },
   currentValues: {
-    policyYear: 2,
-    cashSurrenderValue: 1850,
+    policyYear: 20,
+    cashSurrenderValue: 20400,
     deathBenefit: 200000,
     loanBalance: 0,
   },
