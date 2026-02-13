@@ -240,8 +240,15 @@ const ClaimTracker = ({
           />
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
-          <Box>
+        <Box sx={{
+          display: 'grid',
+          gridTemplateColumns: {
+            xs: 'repeat(2, 1fr)',
+            sm: 'repeat(3, 1fr)'
+          },
+          gap: { xs: 1.5, sm: 2 },
+        }}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', sm: 'auto' } }}>
             <Typography variant="caption" sx={{ opacity: 0.8 }}>
               Claim Amount
             </Typography>
@@ -391,6 +398,10 @@ const ClaimTracker = ({
                 <ListItem
                   key={doc.id}
                   sx={{
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: { xs: 'flex-start', sm: 'center' },
+                    gap: { xs: 1, sm: 0 },
+                    py: { xs: 1.5, sm: 1 },
                     border: '1px solid',
                     borderColor: 'divider',
                     borderRadius: 2,
@@ -401,7 +412,7 @@ const ClaimTracker = ({
                   <ListItemIcon>{getStatusIcon(doc.status)}</ListItemIcon>
                   <ListItemText
                     primary={
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
                         <Typography variant="body2" fontWeight={600}>
                           {doc.name}
                         </Typography>
@@ -427,24 +438,36 @@ const ClaimTracker = ({
                       </>
                     }
                   />
-                  <ListItemSecondaryAction>
+                  <Box sx={{
+                    ml: { xs: 0, sm: 2 },
+                    width: { xs: '100%', sm: 'auto' },
+                    display: 'flex',
+                    justifyContent: { xs: 'flex-start', sm: 'flex-end' },
+                  }}>
                     {doc.status === 'pending' && (
                       <Tooltip title="Upload Document">
-                        <IconButton
-                          edge="end"
-                          color="primary"
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          startIcon={<CloudUpload />}
                           onClick={() => handleFileUpload(doc.id)}
+                          sx={{ minHeight: 44 }}
                         >
-                          <CloudUpload />
-                        </IconButton>
+                          Upload
+                        </Button>
                       </Tooltip>
                     )}
                     {doc.status === 'uploaded' && (
                       <Tooltip title="Awaiting verification">
-                        <Schedule color="warning" />
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                          <Schedule color="warning" />
+                          <Typography variant="caption" color="warning.main">
+                            Pending Review
+                          </Typography>
+                        </Box>
                       </Tooltip>
                     )}
-                  </ListItemSecondaryAction>
+                  </Box>
                 </ListItem>
               ))}
             </List>

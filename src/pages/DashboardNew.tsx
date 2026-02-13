@@ -139,8 +139,9 @@ const Dashboard = () => {
         sx={{
           background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 50%, #8BC53F 100%)',
           color: 'white',
-          py: 8,
-          mb: 6,
+          py: { xs: 4, sm: 6, md: 8 },
+          px: { xs: 2, sm: 3 },
+          mb: { xs: 3, sm: 4, md: 6 },
           position: 'relative',
           overflow: 'hidden',
           '&::before': {
@@ -164,7 +165,14 @@ const Dashboard = () => {
               <Typography variant="h5" sx={{ opacity: 0.95, mb: 3 }}>
                 Your Insurance Dashboard
               </Typography>
-              <Stack direction="row" spacing={3} sx={{ mt: 4 }}>
+              <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                spacing={{ xs: 2, sm: 3 }}
+                sx={{
+                  mt: { xs: 3, md: 4 },
+                  textAlign: { xs: 'center', sm: 'left' }
+                }}
+              >
                 <Box>
                   <Typography variant="h4" fontWeight={700}>
                     {policies.length}
@@ -195,14 +203,21 @@ const Dashboard = () => {
         </Container>
       </Box>
 
-      <Container maxWidth="lg">
-        {/* Pending Items */}
+      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+        {/* Pending Actions */}
         {pendingActions.length > 0 && (
           <Box mb={6}>
             <Typography variant="h4" gutterBottom fontWeight={600} mb={3}>
               To-Do Items
             </Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2 }}>
+            <Box sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                md: '1fr 1fr',
+              },
+              gap: { xs: 1.5, sm: 2 }
+            }}>
               {pendingActions.map((action, index) => (
                 <Box key={action.id}>
                   <Grow in timeout={500 + index * 100}>
@@ -254,7 +269,16 @@ const Dashboard = () => {
             <Typography variant="h4" gutterBottom fontWeight={600} mb={3}>
               Life Insurance
             </Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: 3 }}>
+            <Box sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(auto-fit, minmax(280px, 1fr))',
+                md: 'repeat(2, 1fr)',
+                lg: 'repeat(3, 1fr)',
+              },
+              gap: { xs: 2, sm: 2.5, md: 3 }
+            }}>
               {lifePolicies.map((policy, index) => (
                 <Box key={policy.id}>
                   <Grow in timeout={600 + index * 100}>
@@ -342,7 +366,16 @@ const Dashboard = () => {
             <Typography variant="h4" gutterBottom fontWeight={600} mb={3}>
               Annuities
             </Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: 3 }}>
+            <Box sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(auto-fit, minmax(280px, 1fr))',
+                md: 'repeat(2, 1fr)',
+                lg: 'repeat(3, 1fr)',
+              },
+              gap: { xs: 2, sm: 2.5, md: 3 }
+            }}>
               {annuityPolicies.map((policy, index) => (
                 <Box key={policy.id}>
                   <Grow in timeout={600 + index * 100}>
@@ -430,7 +463,16 @@ const Dashboard = () => {
             <Typography variant="h4" gutterBottom fontWeight={600} mb={3}>
               Property & Casualty
             </Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: 3 }}>
+            <Box sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(auto-fit, minmax(280px, 1fr))',
+                md: 'repeat(2, 1fr)',
+                lg: 'repeat(3, 1fr)',
+              },
+              gap: { xs: 2, sm: 2.5, md: 3 }
+            }}>
               {pcPolicies.map((policy, index) => (
                 <Box key={policy.id}>
                   <Grow in timeout={600 + index * 100}>

@@ -10,7 +10,7 @@
 }
 
 .policy-card-content {
-  padding: 1.5rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -86,9 +86,19 @@
   cursor: pointer;
   padding: 0.5rem;
   transition: color 0.2s ease;
+  min-height: 44px;
 }
 
 .policy-view-button:hover {
   color: #004d84;
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .policy-view-button {
+    width: 100%;
+    padding: 1rem;
+    background: #f0f7ff;
+    border-radius: 4px;
+  }
 }

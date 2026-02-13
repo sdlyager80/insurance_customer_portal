@@ -50,39 +50,56 @@ export const theme = createTheme({
       900: '#212121',
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,      // Mobile portrait
+      sm: 600,    // Mobile landscape
+      md: 768,    // Tablet portrait
+      lg: 1024,   // Tablet landscape / Desktop
+      xl: 1440,   // Large desktop
+    },
+  },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontSize: '3rem',
+      fontFamily: '"Roboto Slab", serif',
+      fontSize: 'clamp(1.75rem, 5vw, 3rem)',
       fontWeight: 700,
       letterSpacing: '-0.02em',
     },
     h2: {
-      fontSize: '2.25rem',
+      fontFamily: '"Roboto Slab", serif',
+      fontSize: 'clamp(1.5rem, 4vw, 2.25rem)',
       fontWeight: 600,
       letterSpacing: '-0.01em',
     },
     h3: {
-      fontSize: '1.75rem',
+      fontFamily: '"Roboto Slab", serif',
+      fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
       fontWeight: 600,
     },
     h4: {
-      fontSize: '1.5rem',
+      fontFamily: '"Roboto Slab", serif',
+      fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
       fontWeight: 600,
     },
     h5: {
-      fontSize: '1.25rem',
+      fontFamily: '"Roboto Slab", serif',
+      fontSize: 'clamp(1rem, 2vw, 1.25rem)',
       fontWeight: 600,
     },
     h6: {
-      fontSize: '1rem',
+      fontFamily: '"Roboto Slab", serif',
+      fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
       fontWeight: 600,
     },
     body1: {
       fontFamily: '"Roboto", sans-serif',
+      fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
     },
     body2: {
       fontFamily: '"Roboto", sans-serif',
+      fontSize: 'clamp(0.8125rem, 1.25vw, 0.875rem)',
     },
   },
   shape: {
@@ -122,7 +139,21 @@ export const theme = createTheme({
           textTransform: 'none',
           fontWeight: 600,
           borderRadius: 8,
-          padding: '10px 24px',
+          padding: '12px 24px',
+          minHeight: 44,  // iOS/Android touch target minimum
+          '@media (max-width: 768px)': {
+            padding: '14px 20px',
+            fontSize: '0.9375rem',
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          minWidth: 44,
+          minHeight: 44,
+          padding: 12,
         },
       },
     },

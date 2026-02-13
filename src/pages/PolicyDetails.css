@@ -40,9 +40,21 @@
 
 .detail-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-top: 1rem;
+}
+
+@media (min-width: 600px) {
+  .detail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .detail-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .detail-item {
@@ -294,6 +306,7 @@
   text-decoration: underline;
 }
 
+/* Mobile edit controls */
 @media (max-width: 768px) {
   .policy-details-container {
     padding: 1rem;
@@ -306,5 +319,24 @@
   .beneficiaries-list,
   .coverages-list {
     grid-template-columns: 1fr;
+  }
+
+  .edit-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .edit-input,
+  .edit-select {
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  .save-button,
+  .cancel-button,
+  .edit-button {
+    width: 100%;
+    min-height: 44px;
   }
 }

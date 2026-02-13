@@ -170,7 +170,14 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
 
       {/* Header */}
       <Box sx={{ mb: 3 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          mb: 2,
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: { xs: 2, sm: 0 },
+        }}>
           <Box>
             <Typography variant="h5" fontWeight={700} gutterBottom>
               Policy Value Projection
@@ -186,6 +193,13 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
             exclusive
             onChange={(_, newType) => newType && setChartType(newType)}
             size="small"
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              '& .MuiToggleButton-root': {
+                flex: { xs: 1, sm: 'initial' },
+                minHeight: 44,
+              },
+            }}
           >
             <ToggleButton value="area">
               <ShowChart fontSize="small" />
@@ -197,7 +211,11 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
         </Box>
 
         {/* Key Metrics */}
-        <Stack direction="row" spacing={3} sx={{ mb: 2 }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={{ xs: 2, sm: 3 }}
+          sx={{ mb: 2 }}
+        >
           <Box>
             <Typography variant="caption" color="text.secondary">
               Current Value
@@ -255,12 +273,21 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
       </Box>
 
       {/* Chart */}
-      <Box sx={{ width: '100%', height: 400 }}>
+      <Box sx={{
+        width: '100%',
+        height: { xs: 300, sm: 350, md: 400 },
+        mt: { xs: 2, sm: 0 },
+      }}>
         <ResponsiveContainer width="100%" height="100%">
           {chartType === 'area' ? (
             <AreaChart
               data={data}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+              margin={{
+                top: 10,
+                right: 10,
+                left: -20,
+                bottom: 10
+              }}
             >
               <defs>
                 {Object.entries(metricConfig).map(([key, config]) => (
@@ -338,7 +365,12 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
           ) : (
             <LineChart
               data={data}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+              margin={{
+                top: 10,
+                right: 10,
+                left: -20,
+                bottom: 10
+              }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
               <XAxis

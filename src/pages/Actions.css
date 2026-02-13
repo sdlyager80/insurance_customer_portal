@@ -300,4 +300,19 @@
   .action-buttons {
     flex-direction: column;
   }
+
+  .action-buttons button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .actions-container {
+    padding: 1.5rem;
+  }
+
+  .action-metadata {
+    flex-wrap: wrap;
+  }
 }
