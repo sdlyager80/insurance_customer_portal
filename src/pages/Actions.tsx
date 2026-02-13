@@ -111,14 +111,14 @@ const Actions = () => {
         </button>
       </div>
 
-      <h1>Actions & Requests</h1>
+      <h1>To-Do & Requests</h1>
       <p className="actions-subtitle">
-        Track your policy actions, requests, and their progress through our system.
+        Track your policy to-do items, requests, and their progress through our system.
       </p>
 
       {pendingActions.length > 0 && (
         <section className="actions-section">
-          <h2>Pending Actions ({pendingActions.length})</h2>
+          <h2>Pending Items ({pendingActions.length})</h2>
           <div className="actions-inset">
             <div className="actions-list">
               {pendingActions.map(action => (
@@ -210,7 +210,7 @@ const Actions = () => {
 
       {completedActions.length > 0 && (
         <section className="actions-section">
-          <h2>Completed Actions ({completedActions.length})</h2>
+          <h2>Completed Items ({completedActions.length})</h2>
           <div className="actions-inset">
             <div className="actions-list">
               {completedActions.map(action => (

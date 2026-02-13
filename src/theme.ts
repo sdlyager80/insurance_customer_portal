@@ -60,7 +60,7 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Roboto", "Roboto Slab", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontFamily: '"Roboto Slab", serif',
       fontSize: 'clamp(1.75rem, 5vw, 3rem)',

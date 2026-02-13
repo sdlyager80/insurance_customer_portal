@@ -191,7 +191,7 @@ const PolicyDetailsPremium = () => {
                   color: 'white',
                   fontWeight: 700,
                   mb: 1,
-                  fontFamily: '"Roboto Slab", serif',
+                  fontFamily: 'inherit',
                 }}
               >
                 {policy.productName}
@@ -330,7 +330,7 @@ const PolicyDetailsPremium = () => {
           <Box>
             <Paper sx={{ p: 3, borderRadius: 3, height: '100%' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                <Typography variant="h6" fontWeight={700} sx={{ fontFamily: '"Roboto Slab", serif' }}>
+                <Typography variant="h6" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
                   Policy Information
                 </Typography>
                 <Tooltip title="Edit Policy">
@@ -382,7 +382,7 @@ const PolicyDetailsPremium = () => {
           <Box>
             <Paper sx={{ p: 3, borderRadius: 3, height: '100%' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                <Typography variant="h6" fontWeight={700} sx={{ fontFamily: '"Roboto Slab", serif' }}>
+                <Typography variant="h6" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
                   Insured Information
                 </Typography>
                 <Tooltip title="Edit Contact">
@@ -445,7 +445,7 @@ const PolicyDetailsPremium = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Favorite sx={{ color: policyColor }} />
-                    <Typography variant="h6" fontWeight={700} sx={{ fontFamily: '"Roboto Slab", serif' }}>
+                    <Typography variant="h6" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
                       Beneficiaries
                     </Typography>
                   </Box>
@@ -488,7 +488,7 @@ const PolicyDetailsPremium = () => {
         {policy.coverages && policy.coverages.length > 0 && (
           <Box sx={{ mt: 3 }}>
             <Paper sx={{ p: 3, borderRadius: 3 }}>
-              <Typography variant="h6" fontWeight={700} sx={{ mb: 3, fontFamily: '"Roboto Slab", serif' }}>
+              <Typography variant="h6" fontWeight={700} sx={{ mb: 3, fontFamily: 'inherit' }}>
                 Coverage Details
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 2 }}>
@@ -536,7 +536,7 @@ const PolicyDetailsPremium = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <TrendingUp sx={{ color: '#1B75BB' }} />
-                    <Typography variant="h6" fontWeight={700} sx={{ fontFamily: '"Roboto Slab", serif' }}>
+                    <Typography variant="h6" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
                       Policy Illustrations
                     </Typography>
                   </Box>

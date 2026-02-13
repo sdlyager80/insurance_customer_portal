@@ -131,7 +131,6 @@ const IllustrationDetails = () => {
                   color: 'white',
                   fontWeight: 700,
                   mb: 1,
-                  fontFamily: '"Roboto Slab", serif',
                 }}
               >
                 Policy Illustration
@@ -307,7 +306,7 @@ const IllustrationDetails = () => {
         {/* Projection Table */}
         <Paper sx={{ borderRadius: 3, overflow: 'hidden' }}>
           <Box sx={{ p: 3, bgcolor: '#F8F9FA', borderBottom: '1px solid', borderColor: 'divider' }}>
-            <Typography variant="h5" fontWeight={700} sx={{ fontFamily: '"Roboto Slab", serif' }}>
+            <Typography variant="h5" fontWeight={700}>
               Value Projections
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>

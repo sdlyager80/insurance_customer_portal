@@ -186,7 +186,7 @@ const Dashboard = () => {
                     {pendingActions.length}
                   </Typography>
                   <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                    Pending Actions
+                    Pending Items
                   </Typography>
                 </Box>
                 <Box>
@@ -208,7 +208,7 @@ const Dashboard = () => {
         {pendingActions.length > 0 && (
           <Box mb={6}>
             <Typography variant="h4" gutterBottom fontWeight={600} mb={3}>
-              Actions Required
+              To-Do Items
             </Typography>
             <Box sx={{
               display: 'grid',

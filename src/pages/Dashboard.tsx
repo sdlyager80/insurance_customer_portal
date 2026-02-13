@@ -54,7 +54,7 @@ const Dashboard = () => {
 
       {pendingActions.length > 0 && (
         <div className="actions-section">
-          <h2>Actions Required</h2>
+          <h2>To-Do Items</h2>
           <div className="actions-grid">
             {pendingActions.map(action => (
               <ActionAlert

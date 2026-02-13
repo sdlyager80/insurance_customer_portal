@@ -25,6 +25,7 @@ import {
   ExpandLess,
   CheckCircle,
   Warning,
+  Info,
 } from '@mui/icons-material';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
@@ -191,6 +192,17 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
 
       <Collapse in={expanded}>
         <Box sx={{ p: 3 }}>
+          {/* Disclaimer */}
+          <Alert severity="info" icon={<Info />} sx={{ mb: 3 }}>
+            <Typography variant="body2" fontWeight={600}>
+              For Demonstration Purposes Only
+            </Typography>
+            <Typography variant="caption">
+              The numbers and calculations shown are for illustrative purposes to demonstrate functionality.
+              Please consult with a licensed insurance professional for accurate coverage recommendations.
+            </Typography>
+          </Alert>
+
           {/* Alert */}
           {isUnderinsured && currentCoverage > 0 && (
             <Alert

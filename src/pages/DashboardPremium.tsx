@@ -202,7 +202,7 @@ const Dashboard = () => {
                   color: 'white',
                   fontWeight: 700,
                   mb: 2,
-                  fontFamily: '"Roboto Slab", serif',
+                  fontFamily: 'inherit',
                 }}
               >
                 {greeting} 👋
@@ -287,14 +287,14 @@ const Dashboard = () => {
           </Paper>
         </Grow>
 
-        {/* Pending Actions */}
+        {/* To-Do Items */}
         {pendingActions.length > 0 && (
           <Box mb={5}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Notifications sx={{ color: '#F6921E' }} />
-                <Typography variant="h5" fontWeight={700} sx={{ fontFamily: '"Roboto Slab", serif' }}>
-                  Actions Required
+                <Typography variant="h5" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
+                  To-Do Items
                 </Typography>
                 <Chip label={pendingActions.length} size="small" color="error" />
               </Box>
@@ -358,7 +358,7 @@ const Dashboard = () => {
 
         {/* All Policies Section */}
         <Box mb={5}>
-          <Typography variant="h5" fontWeight={700} gutterBottom sx={{ mb: 3, fontFamily: '"Roboto Slab", serif' }}>
+          <Typography variant="h5" fontWeight={700} gutterBottom sx={{ mb: 3, fontFamily: 'inherit' }}>
             Your Policies
           </Typography>
 

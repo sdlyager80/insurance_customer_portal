@@ -81,7 +81,7 @@ const IllustrationRequestDialog = ({
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <RequestQuote sx={{ fontSize: 32, color: '#1B75BB' }} />
           <Box>
-            <Typography variant="h5" fontWeight={700} sx={{ fontFamily: '"Roboto Slab", serif' }}>
+            <Typography variant="h5" fontWeight={700}>
               Request Policy Illustration
             </Typography>
             <Typography variant="body2" color="text.secondary">
