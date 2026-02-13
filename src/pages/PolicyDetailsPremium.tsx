@@ -35,6 +35,7 @@ import {
 import type { Policy, Illustration } from '../types/policy';
 import { policyApi, illustrationApi } from '../services/mockApi';
 import AnnuityLoanPayoutRequest from '../components/AnnuityLoanPayoutRequest';
+import PolicyValueChart from '../components/PolicyValueChart';
 
 const PolicyDetailsPremium = () => {
   const { id } = useParams<{ id: string }>();
@@ -95,6 +96,37 @@ const PolicyDetailsPremium = () => {
     // In real app, would submit to API
     alert('Your loan/payout request has been submitted successfully! You will receive a confirmation email shortly.');
   };
+
+  // Generate sample policy value projection data
+  const generatePolicyValueData = () => {
+    const data = [];
+    const initialValue = policy!.coverageAmount;
+    const currentAge = 45; // Mock age, would come from policy data
+    const annualPremium = policy!.premium * (policy!.paymentFrequency === 'monthly' ? 12 : 1);
+    const years = 30;
+
+    for (let year = 0; year <= years; year++) {
+      const growthRate = policy!.type === 'annuity' ? 0.055 : 0.045; // 5.5% for annuity, 4.5% for life
+      const accountValue = initialValue * Math.pow(1 + growthRate, year);
+      const cashValue = accountValue * (0.80 + (year * 0.01)); // Increases over time
+      const deathBenefit = policy!.type === 'life' ? initialValue + (accountValue * 0.3) : 0;
+      const guaranteedValue = policy!.type === 'annuity' ? initialValue * Math.pow(1.03, year) : undefined;
+
+      data.push({
+        year,
+        age: currentAge + year,
+        accountValue: Math.round(accountValue),
+        cashValue: Math.round(Math.min(cashValue, accountValue)),
+        deathBenefit: Math.round(deathBenefit),
+        premiumsPaid: Math.round(annualPremium * year),
+        guaranteedValue: guaranteedValue ? Math.round(guaranteedValue) : undefined,
+      });
+    }
+
+    return data;
+  };
+
+  const policyValueData = policy ? generatePolicyValueData() : [];
 
   if (loading) {
     return (
@@ -281,6 +313,17 @@ const PolicyDetailsPremium = () => {
             </Box>
           </Box>
         </Paper>
+
+        {/* Animated Policy Value Chart */}
+        {(policy.type === 'life' || policy.type === 'annuity') && (
+          <Box sx={{ mb: 4 }}>
+            <PolicyValueChart
+              policyType={policy.type}
+              data={policyValueData}
+              productName={policy.productName}
+            />
+          </Box>
+        )}
 
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
           {/* Policy Information */}
