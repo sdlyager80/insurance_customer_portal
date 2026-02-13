@@ -14,8 +14,6 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
-  useTheme,
-  useMediaQuery,
   Button,
 } from '@mui/material';
 import { Person, ContactPhone, Dashboard as DashboardIcon, Assignment, LocalHospital, Event, Calculate, KeyboardArrowDown } from '@mui/icons-material';
@@ -36,8 +34,6 @@ import { AnnualEnrollmentBanner } from './components/AnnouncementBanner';
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [servicesAnchorEl, setServicesAnchorEl] = useState<null | HTMLElement>(null);
   const [isContactPreferencesOpen, setIsContactPreferencesOpen] = useState(false);

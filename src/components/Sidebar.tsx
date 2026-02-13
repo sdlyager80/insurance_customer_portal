@@ -5,11 +5,9 @@ import {
   ListItemButton,
   Box,
   Typography,
-  Chip,
   useTheme,
   useMediaQuery,
   alpha,
-  Divider,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,

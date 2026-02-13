@@ -22,7 +22,6 @@ import {
 import {
   CalendarMonth,
   Schedule,
-  Person,
   Phone,
   LocationOn,
   VideoCall,

@@ -390,7 +390,7 @@ export const providerService = {
   /**
    * Get available time slots for a specific date
    */
-  getAvailableTimeSlots(providerId: string, date: string): string[] {
+  getAvailableTimeSlots(_providerId: string, _date: string): string[] {
     // Mock time slots - in real app, this would query availability
     return [
       '09:00 AM',
