@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
   ThemeProvider,
@@ -10,14 +11,19 @@ import {
   Typography,
   Avatar,
   IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
-import { Dashboard as DashboardIcon, Assignment, Person } from '@mui/icons-material';
+import { Dashboard as DashboardIcon, Assignment, Person, ContactPhone } from '@mui/icons-material';
 import { theme } from './theme';
 import Dashboard from './pages/DashboardPremium';
 import PolicyDetails from './pages/PolicyDetailsPremium';
 import Actions from './pages/Actions';
 import IllustrationDetails from './pages/IllustrationDetails';
 import BloomLogo from './components/BloomLogo';
+import ContactPreferences from './components/ContactPreferences';
 
 const Navigation = () => {
   const location = useLocation();
@@ -61,6 +67,22 @@ const Navigation = () => {
 };
 
 function AppContent() {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [isContactPreferencesOpen, setIsContactPreferencesOpen] = useState(false);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleContactPreferencesOpen = () => {
+    setIsContactPreferencesOpen(true);
+    handleMenuClose();
+  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <AppBar
@@ -91,11 +113,37 @@ function AppContent() {
             </Box>
             <Box display="flex" alignItems="center">
               <Navigation />
-              <IconButton sx={{ ml: 2 }}>
+              <IconButton onClick={handleMenuOpen} sx={{ ml: 2 }}>
                 <Avatar sx={{ width: 36, height: 36, bgcolor: 'primary.main' }}>
                   <Person />
                 </Avatar>
               </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    minWidth: 200,
+                  },
+                }}
+              >
+                <MenuItem onClick={handleContactPreferencesOpen}>
+                  <ListItemIcon>
+                    <ContactPhone fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Contact Preferences</ListItemText>
+                </MenuItem>
+              </Menu>
             </Box>
           </Toolbar>
         </Container>
@@ -127,6 +175,12 @@ function AppContent() {
           </Typography>
         </Container>
       </Box>
+
+      <ContactPreferences
+        open={isContactPreferencesOpen}
+        onClose={() => setIsContactPreferencesOpen(false)}
+        userEmail="customer@bloominsurance.com"
+      />
     </Box>
   );
 }
