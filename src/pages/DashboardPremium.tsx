@@ -32,6 +32,8 @@ import {
 } from '@mui/icons-material';
 import type { Policy, CustomerAction } from '../types/policy';
 import { policyApi, actionApi } from '../services/mockApi';
+import CoverageCalculator from '../components/CoverageCalculator';
+// import ClaimTracker from '../components/ClaimTracker'; // Uncomment when needed
 
 const Dashboard = () => {
   const [policies, setPolicies] = useState<Policy[]>([]);
@@ -481,6 +483,35 @@ const Dashboard = () => {
             })}
           </Box>
         </Box>
+
+        {/* Coverage Calculator Section */}
+        <Box sx={{ mt: 4 }}>
+          <CoverageCalculator
+            currentCoverage={totalCoverage}
+            onRecommendationAccept={(amount) => {
+              console.log('Get quote for:', amount);
+              // In real app, would navigate to quote request page
+              alert(`Great! We'll help you get a quote for ${formatCurrency(amount)} in coverage.`);
+            }}
+          />
+        </Box>
+
+        {/* Mock Claim Tracker (if you have an active claim) */}
+        {/* Uncomment to see the claim tracker */}
+        {/*
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h4" fontWeight={700} gutterBottom>
+            Active Claim
+          </Typography>
+          <ClaimTracker
+            claimNumber="CLM-2026-00542"
+            claimType="Auto Accident - Property Damage"
+            submittedDate="2026-02-10"
+            claimAmount={8500}
+            currentStatus="pending_documents"
+          />
+        </Box>
+        */}
       </Container>
     </Box>
   );
