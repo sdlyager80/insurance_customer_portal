@@ -32,7 +32,6 @@ import {
   TrendingUp,
   Payment,
   PictureAsPdf,
-  PlayCircleOutline,
 } from '@mui/icons-material';
 import type { Policy, Illustration } from '../types/policy';
 import { policyApi, illustrationApi } from '../services/mockApi';
