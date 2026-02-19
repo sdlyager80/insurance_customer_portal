@@ -313,17 +313,25 @@ const PolicyDetailsPremium = () => {
                 alignSelf: 'flex-start',
               }}
             >
-              <iframe
-                src="https://www.youtube.com/embed/5bhAKR9_R0Q?autoplay=1&mute=1&loop=1&playlist=5bhAKR9_R0Q"
-                title="Educational Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+              {/* SharePoint Video - Using HTML5 video element */}
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
                 style={{
                   width: '100%',
                   height: '100%',
-                  border: 'none',
+                  objectFit: 'cover',
                 }}
-              />
+              >
+                <source
+                  src="https://dxcportal.sharepoint.com/sites/SmartAppIdeation/Shared%20Documents/Videos/Fixed%20Annuity.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
             </Box>
           </Box>
         </Container>
