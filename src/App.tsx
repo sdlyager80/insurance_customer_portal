@@ -29,7 +29,6 @@ import Emergency from './pages/Emergency';
 import BloomLogo from './components/BloomLogo';
 import ContactPreferences from './components/ContactPreferences';
 import CareOptionsModal from './components/CareOptionsModal';
-import { AnnualEnrollmentBanner } from './components/AnnouncementBanner';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -38,7 +37,6 @@ function AppContent() {
   const [servicesAnchorEl, setServicesAnchorEl] = useState<null | HTMLElement>(null);
   const [isContactPreferencesOpen, setIsContactPreferencesOpen] = useState(false);
   const [careOptionsModalOpen, setCareOptionsModalOpen] = useState(false);
-  const [showAnnualEnrollmentBanner, setShowAnnualEnrollmentBanner] = useState(true);
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -76,22 +74,6 @@ function AppContent() {
   const handleNavigateToCalculator = () => {
     navigate('/coverage-calculator');
     handleServicesMenuClose();
-  };
-
-  const handleViewPolicy = () => {
-    // Navigate to first policy (in real app, would show policy selection or default policy)
-    navigate('/policy/life-001');
-  };
-
-  const handleWatchVideo = () => {
-    // Open video in new tab (in real app, would open video modal or player)
-    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
-  };
-
-  const handleDismissBanner = () => {
-    setShowAnnualEnrollmentBanner(false);
-    // Store dismissal in localStorage so it persists
-    localStorage.setItem('annualEnrollmentBannerDismissed', 'true');
   };
 
   return (
@@ -322,15 +304,6 @@ function AppContent() {
           </Toolbar>
         </Container>
       </AppBar>
-
-      {/* Annual Enrollment Banner */}
-      {showAnnualEnrollmentBanner && (
-        <AnnualEnrollmentBanner
-          onViewPolicy={handleViewPolicy}
-          onWatchVideo={handleWatchVideo}
-          onDismiss={handleDismissBanner}
-        />
-      )}
 
       {/* Main Content */}
       <Box
