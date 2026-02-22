@@ -74,19 +74,19 @@ const Dashboard = () => {
 
   const getStatusChipSx = (status: string) => {
     switch (status) {
-      case 'active': return { bgcolor: '#37A52620', borderColor: '#37A5264D' };
-      case 'pending': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
+      case 'active': return { bgcolor: '#37A52620', border: '1px solid #37A5264D' };
+      case 'pending': return { bgcolor: '#F6921E20', border: '1px solid #F6921E4D' };
       case 'lapsed':
-      case 'cancelled': return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
-      default: return { bgcolor: '#80828520', borderColor: '#8082854D' };
+      case 'cancelled': return { bgcolor: '#D02E2E20', border: '1px solid #D02E2E4D' };
+      default: return { bgcolor: '#80828520', border: '1px solid #8082854D' };
     }
   };
 
   const getPriorityChipSx = (priority: string) => {
     switch (priority) {
-      case 'high': return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
-      case 'medium': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
-      default: return { bgcolor: '#1B75BB20', borderColor: '#1B75BB4D' };
+      case 'high': return { bgcolor: '#D02E2E20', border: '1px solid #D02E2E4D' };
+      case 'medium': return { bgcolor: '#F6921E20', border: '1px solid #F6921E4D' };
+      default: return { bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D' };
     }
   };
 
@@ -309,7 +309,7 @@ const Dashboard = () => {
                         <Chip
                           label={action.priority.toUpperCase()}
                           size="small"
-                          sx={{ fontWeight: 600, fontSize: '0.7rem', color: '#000000', border: '1px solid', ...getPriorityChipSx(action.priority) }}
+                          sx={{ fontWeight: 600, fontSize: '0.7rem', color: '#000000', ...getPriorityChipSx(action.priority) }}
                         />
                       </Box>
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -325,8 +325,7 @@ const Dashboard = () => {
                             letterSpacing: 0.3,
                             color: '#000000',
                             bgcolor: '#1B75BB20',
-                            border: '1px solid',
-                            borderColor: '#1B75BB4D',
+                            border: '1px solid #1B75BB4D',
                           }}
                         />
                         {action.dueDate && (
@@ -339,8 +338,7 @@ const Dashboard = () => {
                               fontWeight: 600,
                               color: '#000000',
                               bgcolor: '#F6921E20',
-                              border: '1px solid',
-                              borderColor: '#F6921E4D',
+                              border: '1px solid #F6921E4D',
                             }}
                           />
                         )}
@@ -401,7 +399,7 @@ const Dashboard = () => {
                             label={policy.status.toUpperCase()}
                             size="small"
                             icon={<CheckCircle sx={{ fontSize: 16, color: '#000000 !important' }} />}
-                            sx={{ fontWeight: 600, color: '#000000', border: '1px solid', ...getStatusChipSx(policy.status) }}
+                            sx={{ fontWeight: 600, color: '#000000', ...getStatusChipSx(policy.status) }}
                           />
                         </Box>
 
