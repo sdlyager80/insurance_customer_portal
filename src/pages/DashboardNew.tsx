@@ -29,6 +29,12 @@ import {
 import type { Policy, CustomerAction } from '../types/policy';
 import { policyApi, actionApi } from '../services/mockApi';
 
+const getPriorityColor = (priority: string): 'error' | 'warning' | 'info' => {
+  if (priority === 'high') return 'error';
+  if (priority === 'medium') return 'warning';
+  return 'info';
+};
+
 const Dashboard = () => {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [actions, setActions] = useState<CustomerAction[]>([]);
