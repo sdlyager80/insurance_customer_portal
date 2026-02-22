@@ -272,6 +272,126 @@ const mockProviders: Provider[] = [
   },
 ];
 
+// Helper: format a date offset from today as yyyy-MM-dd
+function offsetDate(days: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toISOString().split('T')[0];
+}
+
+// Insurance advisors — kept separate from healthcare mockProviders so they
+// don't appear in the Find Care provider search
+const insuranceAdvisors: Provider[] = [
+  {
+    id: 'adv-001',
+    name: 'Michael Torres',
+    specialty: 'Life Insurance Advisor',
+    address: '500 W 2nd Street, Suite 1900',
+    city: 'Austin',
+    state: 'TX',
+    zip: '78701',
+    country: 'United States',
+    phone: '+1 (512) 555-0101',
+    latitude: 30.2672,
+    longitude: -97.7431,
+    telemedicine: true,
+    rating: 4.9,
+  },
+  {
+    id: 'adv-002',
+    name: 'Jennifer Park',
+    specialty: 'Annuity Specialist',
+    address: '300 W 6th Street, Suite 2100',
+    city: 'Austin',
+    state: 'TX',
+    zip: '78701',
+    country: 'United States',
+    phone: '+1 (512) 555-0202',
+    latitude: 30.2700,
+    longitude: -97.7450,
+    telemedicine: true,
+    rating: 4.8,
+  },
+  {
+    id: 'adv-003',
+    name: 'Robert Hughes',
+    specialty: 'Property & Casualty Advisor',
+    address: '100 Congress Ave, Suite 1400',
+    city: 'Austin',
+    state: 'TX',
+    zip: '78701',
+    country: 'United States',
+    phone: '+1 (512) 555-0303',
+    latitude: 30.2650,
+    longitude: -97.7404,
+    telemedicine: false,
+    rating: 4.7,
+  },
+  {
+    id: 'adv-004',
+    name: 'Amanda Foster',
+    specialty: 'Auto Insurance Advisor',
+    address: '823 Congress Ave, Suite 800',
+    city: 'Austin',
+    state: 'TX',
+    zip: '78701',
+    country: 'United States',
+    phone: '+1 (512) 555-0404',
+    latitude: 30.2660,
+    longitude: -97.7420,
+    telemedicine: true,
+    rating: 4.8,
+  },
+];
+
+// Seed appointments — insurance advisor meetings relative to today
+const seedAppointments: Appointment[] = [
+  {
+    id: 'apt-seed-001',
+    providerId: 'adv-001',
+    providerName: 'Michael Torres',
+    date: offsetDate(-91),
+    time: '10:00 AM',
+    reason: 'Annual Life Insurance Policy Review',
+    visitType: 'in-person',
+    confirmationNumber: 'BLM100001',
+    status: 'confirmed',
+  },
+  {
+    id: 'apt-seed-002',
+    providerId: 'adv-002',
+    providerName: 'Jennifer Park',
+    date: offsetDate(-62),
+    time: '02:30 PM',
+    reason: 'Annuity Planning & Beneficiary Update',
+    visitType: 'telehealth',
+    confirmationNumber: 'BLM100002',
+    status: 'confirmed',
+  },
+  {
+    id: 'apt-seed-003',
+    providerId: 'adv-003',
+    providerName: 'Robert Hughes',
+    date: offsetDate(-34),
+    time: '11:00 AM',
+    reason: 'Home Insurance Renewal Discussion',
+    visitType: 'in-person',
+    confirmationNumber: 'BLM100003',
+    status: 'confirmed',
+  },
+  {
+    id: 'apt-seed-004',
+    providerId: 'adv-004',
+    providerName: 'Amanda Foster',
+    date: offsetDate(7),
+    time: '09:30 AM',
+    reason: 'Auto Coverage Review & Update',
+    visitType: 'in-person',
+    confirmationNumber: 'BLM100004',
+    status: 'confirmed',
+  },
+];
+
 /**
  * Calculate distance between two coordinates using Haversine formula
  * Returns distance in miles
@@ -312,10 +432,10 @@ export const providerService = {
   },
 
   /**
-   * Get provider by ID
+   * Get provider by ID — checks both healthcare providers and insurance advisors
    */
   getProviderById(id: string): Provider | undefined {
-    return mockProviders.find((p) => p.id === id);
+    return mockProviders.find((p) => p.id === id) ?? insuranceAdvisors.find((a) => a.id === id);
   },
 
   /**
@@ -479,11 +599,15 @@ export const providerService = {
   },
 
   /**
-   * Get all appointments from localStorage
+   * Get all appointments — merges seed data with localStorage.
+   * localStorage version takes precedence (preserves cancellations/edits).
    */
   getAllAppointments(): Appointment[] {
     const stored = localStorage.getItem('appointments');
-    return stored ? JSON.parse(stored) : [];
+    const userAppointments: Appointment[] = stored ? JSON.parse(stored) : [];
+    const userIds = new Set(userAppointments.map((a) => a.id));
+    const seeds = seedAppointments.filter((a) => !userIds.has(a.id));
+    return [...seeds, ...userAppointments];
   },
 
   /**

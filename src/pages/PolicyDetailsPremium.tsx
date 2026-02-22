@@ -165,6 +165,14 @@ const PolicyDetailsPremium = () => {
   const isLifePolicy = policy.type === 'life';
   const policyColor = isLifePolicy ? '#D02E2E' : policy.type === 'annuity' ? '#8BC53F' : '#00ADEE';
 
+  const policyVideoUrl: Record<string, string> = {
+    life: '',
+    annuity: 'https://dxcportal.sharepoint.com/sites/SmartAppIdeation/Shared%20Documents/Videos/Fixed%20Annuity.mp4',
+    property: '',
+    casualty: '',
+  };
+  const videoUrl = policyVideoUrl[policy.type] ?? '';
+
   return (
     <Box sx={{ bgcolor: '#F8F9FA', minHeight: '100vh', pb: 8 }}>
       {/* Header Section */}
@@ -298,41 +306,39 @@ const PolicyDetailsPremium = () => {
               </Box>
             </Box>
 
-            {/* Right Side - Educational Video */}
-            <Box
-              sx={{
-                width: { xs: '100%', sm: 400, md: 320, lg: 350 },
-                maxWidth: { xs: '100%', sm: 400, md: 320, lg: 350 },
-                aspectRatio: '16 / 9',
-                borderRadius: 2,
-                overflow: 'hidden',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                mx: { xs: 'auto', md: 0 },
-                flexShrink: 0,
-                alignSelf: 'flex-start',
-              }}
-            >
-              {/* SharePoint Video - Using HTML5 video element */}
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+            {/* Right Side - Educational Video (only shown when a video exists for this policy type) */}
+            {videoUrl && (
+              <Box
+                sx={{
+                  width: { xs: '100%', sm: 400, md: 320, lg: 350 },
+                  maxWidth: { xs: '100%', sm: 400, md: 320, lg: 350 },
+                  aspectRatio: '16 / 9',
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  mx: { xs: 'auto', md: 0 },
+                  flexShrink: 0,
+                  alignSelf: 'flex-start',
                 }}
               >
-                <source
-                  src="https://dxcportal.sharepoint.com/sites/SmartAppIdeation/Shared%20Documents/Videos/Fixed%20Annuity.mp4"
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
-            </Box>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                >
+                  <source src={videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </Box>
+            )}
           </Box>
         </Container>
       </Box>
@@ -351,8 +357,8 @@ const PolicyDetailsPremium = () => {
         >
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-              <Avatar sx={{ bgcolor: `${policyColor}20`, width: 56, height: 56 }}>
-                <Security sx={{ color: policyColor, fontSize: 28 }} />
+              <Avatar sx={{ bgcolor: '#1B75BB20', width: 56, height: 56 }}>
+                <Security sx={{ color: '#1B75BB', fontSize: 28 }} />
               </Avatar>
               <Box>
                 <Typography variant="body2" color="text.secondary">
@@ -364,8 +370,8 @@ const PolicyDetailsPremium = () => {
               </Box>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-              <Avatar sx={{ bgcolor: '#F6921E20', width: 56, height: 56 }}>
-                <AccountBalance sx={{ color: '#F6921E', fontSize: 28 }} />
+              <Avatar sx={{ bgcolor: '#1B75BB20', width: 56, height: 56 }}>
+                <AccountBalance sx={{ color: '#1B75BB', fontSize: 28 }} />
               </Avatar>
               <Box>
                 <Typography variant="body2" color="text.secondary">

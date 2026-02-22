@@ -137,11 +137,6 @@ const Actions = () => {
                         size="small"
                         sx={{ ...getPriorityChipSx(action.priority), color: '#000000', fontWeight: 600 }}
                       />
-                      <Chip
-                        label={action.status.replace('_', ' ').toUpperCase()}
-                        size="small"
-                        sx={{ ...getStatusChipSx(action.status), color: '#000000', fontWeight: 600 }}
-                      />
                     </div>
                   </div>
 
@@ -237,11 +232,6 @@ const Actions = () => {
                   >
                     <div className="accordion-label">
                       <span>{action.title}</span>
-                      <Chip
-                        label={action.status.replace('_', ' ').toUpperCase()}
-                        size="small"
-                        sx={{ ...getStatusChipSx(action.status), color: '#000000', fontWeight: 600 }}
-                      />
                     </div>
                     {expandedAction === action.id
                       ? <ExpandMore sx={{ color: '#808285', fontSize: 22 }} />
