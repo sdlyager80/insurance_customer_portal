@@ -15,7 +15,6 @@ import {
   Grow,
   Paper,
   Divider,
-  IconButton,
 } from '@mui/material';
 import {
   AccountBalance,
@@ -28,7 +27,6 @@ import {
   ArrowForward,
   Notifications,
   Security,
-  RequestQuote,
 } from '@mui/icons-material';
 import type { Policy, CustomerAction } from '../types/policy';
 import { policyApi, actionApi } from '../services/mockApi';
@@ -90,12 +88,6 @@ const Dashboard = () => {
       case 'medium': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
       default: return { bgcolor: '#1B75BB20', borderColor: '#1B75BB4D' };
     }
-  };
-
-  const handleIllustrationRequest = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
-    const illustrationUrl = 'https://illustrations-ui.demo-1.hub-1.illus-dev.assure.dxc.com/index.html?type=UniversalLifeProducts&id=2a7254ac-93c8-45fa-b35e-a7ac079ceeac#/';
-    window.open(illustrationUrl, '_blank');
   };
 
   const formatCurrency = (amount: number) => {
@@ -284,7 +276,7 @@ const Dashboard = () => {
           <Box mb={5}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Notifications sx={{ color: '#F6921E' }} />
+                <Notifications sx={{ color: '#1B75BB' }} />
                 <Typography variant="h5" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
                   To-Do Items
                 </Typography>
@@ -369,14 +361,8 @@ const Dashboard = () => {
 
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: 3 }}>
             {policies.map((policy, index) => {
-              const iconBgColor =
-                policy.type === 'life' ? '#FFEEF0' :
-                policy.type === 'annuity' ? '#E8F9F3' :
-                '#E8F5FF';
-              const iconColor =
-                policy.type === 'life' ? '#D02E2E' :
-                policy.type === 'annuity' ? '#8BC53F' :
-                '#00ADEE';
+              const iconBgColor = '#E8F5FF';
+              const iconColor = '#1B75BB';
 
               return (
                 <Grow in timeout={700 + index * 80} key={policy.id}>
@@ -468,23 +454,8 @@ const Dashboard = () => {
                           </Box>
                         </Stack>
 
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 3 }}>
-                          {policy.type === 'life' && (
-                            <IconButton
-                              size="small"
-                              onClick={handleIllustrationRequest}
-                              sx={{
-                                bgcolor: iconColor + '20',
-                                color: iconColor,
-                                '&:hover': {
-                                  bgcolor: iconColor + '30',
-                                },
-                              }}
-                            >
-                              <RequestQuote fontSize="small" />
-                            </IconButton>
-                          )}
-                          <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto', color: iconColor }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', mt: 3 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', color: '#1B75BB' }}>
                             <Typography variant="body2" fontWeight={600} sx={{ mr: 0.5 }}>
                               View Details
                             </Typography>
