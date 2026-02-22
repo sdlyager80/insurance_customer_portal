@@ -62,28 +62,34 @@ export const theme = createTheme({
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
+      fontFamily: '"Roboto Slab", Georgia, serif',
       fontSize: 'clamp(1.75rem, 5vw, 3rem)',
       fontWeight: 700,
       letterSpacing: '-0.02em',
     },
     h2: {
+      fontFamily: '"Roboto Slab", Georgia, serif',
       fontSize: 'clamp(1.5rem, 4vw, 2.25rem)',
-      fontWeight: 600,
+      fontWeight: 700,
       letterSpacing: '-0.01em',
     },
     h3: {
+      fontFamily: '"Roboto Slab", Georgia, serif',
       fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
       fontWeight: 600,
     },
     h4: {
+      fontFamily: '"Roboto Slab", Georgia, serif',
       fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
       fontWeight: 600,
     },
     h5: {
+      fontFamily: '"Roboto", sans-serif',
       fontSize: 'clamp(1rem, 2vw, 1.25rem)',
       fontWeight: 600,
     },
     h6: {
+      fontFamily: '"Roboto", sans-serif',
       fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
       fontWeight: 600,
     },

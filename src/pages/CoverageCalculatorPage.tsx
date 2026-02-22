@@ -12,7 +12,7 @@ const CoverageCalculatorPage = () => {
         <Button
           startIcon={<ArrowBack />}
           onClick={() => navigate('/')}
-          sx={{ mb: 3 }}
+          sx={{ mb: 3, color: '#1B75BB', fontWeight: 600 }}
         >
           Back to Dashboard
         </Button>

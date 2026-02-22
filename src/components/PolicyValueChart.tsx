@@ -147,7 +147,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
       sx={{
         p: 3,
         borderRadius: 3,
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+        bgcolor: '#FFFFFF',
         border: '1px solid',
         borderColor: 'divider',
         position: 'relative',
@@ -163,7 +163,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
           width: 200,
           height: 200,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(27, 117, 187, 0.05) 0%, transparent 70%)',
+          bgcolor: 'rgba(27, 117, 187, 0.04)',
           pointerEvents: 'none',
         }}
       />
@@ -220,7 +220,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
             <Typography variant="caption" color="text.secondary">
               Current Value
             </Typography>
-            <Typography variant="h5" fontWeight={700} color="primary">
+            <Typography variant="h5" fontWeight={700} color="#000000">
               {formatCurrency(currentValue.accountValue)}
             </Typography>
           </Box>
@@ -228,7 +228,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
             <Typography variant="caption" color="text.secondary">
               Total Growth
             </Typography>
-            <Typography variant="h5" fontWeight={700} color="success.main">
+            <Typography variant="h5" fontWeight={700} color="#000000">
               {formatCurrency(totalGrowth)}
             </Typography>
           </Box>
@@ -236,7 +236,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
             <Typography variant="caption" color="text.secondary">
               Growth Rate
             </Typography>
-            <Typography variant="h5" fontWeight={700} color="success.main">
+            <Typography variant="h5" fontWeight={700} color="#000000">
               +{growthPercentage}%
             </Typography>
           </Box>
@@ -257,7 +257,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
                   bgcolor: selectedMetrics.includes(key) ? `${config.color}20` : 'transparent',
                   border: '1.5px solid',
                   borderColor: selectedMetrics.includes(key) ? config.color : 'divider',
-                  color: selectedMetrics.includes(key) ? config.color : 'text.secondary',
+                  color: '#000000',
                   fontWeight: selectedMetrics.includes(key) ? 600 : 400,
                   '&:hover': {
                     bgcolor: `${config.color}30`,
@@ -292,8 +292,8 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
               <defs>
                 {Object.entries(metricConfig).map(([key, config]) => (
                   <linearGradient key={key} id={`color${key}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={config.color} stopOpacity={0.3} />
-                    <stop offset="95%" stopColor={config.color} stopOpacity={0.05} />
+                    <stop offset="0%" stopColor={config.color} stopOpacity={0.2} />
+                    <stop offset="100%" stopColor={config.color} stopOpacity={0.2} />
                   </linearGradient>
                 ))}
               </defs>

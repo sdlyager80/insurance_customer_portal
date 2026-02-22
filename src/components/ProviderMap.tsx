@@ -136,17 +136,15 @@ const ProviderMap = ({ providers, userLocation, onBookProvider }: ProviderMapPro
                 <Chip
                   label={provider.specialty}
                   size="small"
-                  color="primary"
-                  sx={{ mb: 1 }}
+                  sx={{ mb: 1, bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D', color: '#000000', fontWeight: 600 }}
                 />
 
                 {provider.telemedicine && (
                   <Chip
-                    icon={<VideoCall fontSize="small" />}
+                    icon={<VideoCall fontSize="small" sx={{ color: '#000000 !important' }} />}
                     label="Telemedicine"
                     size="small"
-                    color="success"
-                    sx={{ ml: 0.5, mb: 1 }}
+                    sx={{ ml: 0.5, mb: 1, bgcolor: '#37A52620', border: '1px solid #37A5264D', color: '#000000', fontWeight: 600 }}
                   />
                 )}
 
@@ -160,7 +158,7 @@ const ProviderMap = ({ providers, userLocation, onBookProvider }: ProviderMapPro
                     {provider.phone}
                   </Typography>
                   {provider.distance !== undefined && (
-                    <Typography variant="body2" fontWeight={600} color="primary" sx={{ mt: 0.5 }}>
+                    <Typography variant="body2" fontWeight={600} color="#000000" sx={{ mt: 0.5 }}>
                       {provider.distance.toFixed(1)} miles away
                     </Typography>
                   )}
@@ -171,7 +169,7 @@ const ProviderMap = ({ providers, userLocation, onBookProvider }: ProviderMapPro
                   fullWidth
                   size="small"
                   onClick={() => onBookProvider(provider)}
-                  sx={{ mt: 1, minHeight: 36 }}
+                  sx={{ mt: 1, minHeight: 44, bgcolor: '#1B75BB', '&:hover': { bgcolor: '#155f99' } }}
                 >
                   Book Appointment
                 </Button>

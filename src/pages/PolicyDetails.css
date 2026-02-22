@@ -22,7 +22,8 @@
 .policy-hero-number {
   font-size: 1rem;
   color: #666;
-  font-family: monospace;
+  letter-spacing: 0.4px;
+  font-weight: 500;
   margin: 0;
 }
 

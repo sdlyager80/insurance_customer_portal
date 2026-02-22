@@ -88,9 +88,10 @@ const MyAppointments = () => {
       <Card
         sx={{
           mb: 2,
-          opacity: isCancelled ? 0.6 : 1,
-          border: isCancelled ? '1px solid #e0e0e0' : '1px solid',
-          borderColor: isCancelled ? 'grey.300' : 'primary.light',
+          opacity: isCancelled ? 0.7 : 1,
+          border: '1px solid',
+          borderColor: isCancelled ? 'rgba(0,0,0,0.1)' : 'rgba(27,117,187,0.15)',
+          borderLeft: `4px solid ${isCancelled ? '#D02E2E' : isPast ? '#808285' : '#1B75BB'}`,
           position: 'relative',
         }}
       >
@@ -105,11 +106,13 @@ const MyAppointments = () => {
           >
             <Chip
               label="CANCELLED"
-              color="error"
               sx={{
                 fontWeight: 700,
                 fontSize: '0.875rem',
                 height: 32,
+                color: '#000000',
+                bgcolor: '#D02E2E20',
+                border: '1px solid #D02E2E4D',
               }}
             />
           </Box>
@@ -117,21 +120,20 @@ const MyAppointments = () => {
         <CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
             <Box sx={{ flex: 1 }}>
-              <Typography variant="h6" fontWeight={600} gutterBottom>
+              <Typography variant="h6" fontWeight={700} sx={{ fontSize: '1.1rem', mb: 1 }}>
                 {appointment.providerName}
               </Typography>
               <Chip
-                icon={appointment.visitType === 'telehealth' ? <VideoCall /> : <LocationOn />}
+                icon={appointment.visitType === 'telehealth' ? <VideoCall sx={{ color: '#000000 !important' }} /> : <LocationOn sx={{ color: '#000000 !important' }} />}
                 label={appointment.visitType === 'telehealth' ? 'Telemedicine' : 'In-Person'}
                 size="small"
-                color={appointment.visitType === 'telehealth' ? 'success' : 'primary'}
-                sx={{ mr: 1 }}
+                sx={{ mr: 1, color: '#000000', fontWeight: 600, bgcolor: appointment.visitType === 'telehealth' ? '#37A52620' : '#1B75BB20', border: `1px solid ${appointment.visitType === 'telehealth' ? '#37A5264D' : '#1B75BB4D'}` }}
               />
               <Chip
-                icon={<CheckCircle />}
-                label={appointment.status.toUpperCase()}
+                icon={isCancelled ? <Cancel sx={{ color: '#000000 !important' }} /> : <CheckCircle sx={{ color: '#000000 !important' }} />}
+                label={appointment.status.replace('_', ' ').toUpperCase()}
                 size="small"
-                color={appointment.status === 'confirmed' ? 'success' : 'default'}
+                sx={{ color: '#000000', fontWeight: 600, bgcolor: isCancelled ? '#D02E2E20' : appointment.status === 'confirmed' ? '#37A52620' : '#80828520', border: `1px solid ${isCancelled ? '#D02E2E4D' : appointment.status === 'confirmed' ? '#37A5264D' : '#8082854D'}` }}
               />
             </Box>
           </Box>
@@ -181,7 +183,7 @@ const MyAppointments = () => {
               <Typography variant="caption" color="text.secondary">
                 Confirmation:
               </Typography>
-              <Typography variant="body2" fontWeight={600} color="primary">
+              <Typography variant="body2" fontWeight={600} color="#000000">
                 {appointment.confirmationNumber}
               </Typography>
               <IconButton
@@ -201,11 +203,10 @@ const MyAppointments = () => {
             {!isPast && !isCancelled && (
               <Button
                 variant="outlined"
-                color="error"
                 size="small"
                 startIcon={<Cancel />}
                 onClick={() => handleCancelClick(appointment)}
-                sx={{ minHeight: 36 }}
+                sx={{ minHeight: 44, color: '#D02E2E', borderColor: '#D02E2E', '&:hover': { borderColor: '#b12525', color: '#b12525', bgcolor: '#D02E2E14' } }}
               >
                 Cancel Appointment
               </Button>
@@ -240,15 +241,18 @@ const MyAppointments = () => {
             sx={{
               borderBottom: 1,
               borderColor: 'divider',
+              '& .MuiTab-root': { fontWeight: 600, color: '#808285' },
+              '& .MuiTab-root.Mui-selected': { color: '#1B75BB' },
+              '& .MuiTabs-indicator': { bgcolor: '#1B75BB', height: 3 },
             }}
           >
             <Tab
               label={`Upcoming (${upcomingAppointments.length})`}
-              sx={{ minHeight: 64, fontWeight: 600 }}
+              sx={{ minHeight: 56 }}
             />
             <Tab
               label={`Past (${pastAppointments.length})`}
-              sx={{ minHeight: 64, fontWeight: 600 }}
+              sx={{ minHeight: 56 }}
             />
           </Tabs>
         </Paper>
@@ -287,7 +291,7 @@ const MyAppointments = () => {
                 size="large"
                 onClick={() => navigate('/find-care')}
                 startIcon={<CalendarToday />}
-                sx={{ minHeight: 44 }}
+                sx={{ minHeight: 44, bgcolor: '#1B75BB', '&:hover': { bgcolor: '#155f99' } }}
               >
                 Find Care & Book Appointment
               </Button>
@@ -331,12 +335,12 @@ const MyAppointments = () => {
           )}
         </DialogContent>
         <DialogActions sx={{ p: 2 }}>
-          <Button onClick={() => setCancelDialogOpen(false)}>Keep Appointment</Button>
+          <Button onClick={() => setCancelDialogOpen(false)} sx={{ color: '#1B75BB' }}>Keep Appointment</Button>
           <Button
             variant="contained"
-            color="error"
             onClick={handleCancelConfirm}
             startIcon={<Cancel />}
+            sx={{ bgcolor: '#D02E2E', '&:hover': { bgcolor: '#b12525' } }}
           >
             Cancel Appointment
           </Button>

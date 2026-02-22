@@ -36,21 +36,21 @@ const Emergency = () => {
       number: '1-800-222-1222',
       description: 'Poison emergencies',
       icon: <LocalHospital sx={{ fontSize: 40 }} />,
-      color: '#ed6c02',
+      color: '#F6921E',
     },
     {
       title: 'Crisis Lifeline',
       number: '988',
       description: 'Mental health crisis support',
       icon: <Psychology sx={{ fontSize: 40 }} />,
-      color: '#9c27b0',
+      color: '#00ADEE',
     },
     {
       title: 'Insurance Emergency Line',
       number: '1-800-555-0199',
       description: '24/7 insurance support',
       icon: <Phone sx={{ fontSize: 40 }} />,
-      color: '#1976d2',
+      color: '#1B75BB',
     },
   ];
 
@@ -80,12 +80,13 @@ const Emergency = () => {
               <Card
                 key={index}
                 sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
+                  border: '1px solid rgba(0,0,0,0.08)',
+                  borderLeft: `4px solid ${contact.color}`,
                   transition: 'all 0.2s',
                   '&:hover': {
                     boxShadow: 4,
-                    borderColor: contact.color,
+                    borderColor: `${contact.color}80`,
+                    borderLeft: `4px solid ${contact.color}`,
                   },
                 }}
               >
@@ -117,9 +118,9 @@ const Emergency = () => {
                         variant="h4"
                         fontWeight={700}
                         sx={{
-                          color: contact.color,
+                          color: '#000000',
                           mb: 1,
-                          fontFamily: 'monospace',
+                          letterSpacing: 0.5,
                         }}
                       >
                         <a
@@ -148,16 +149,16 @@ const Emergency = () => {
           sx={{
             mt: 4,
             p: 3,
-            bgcolor: 'error.50',
+            bgcolor: '#D02E2E0D',
             borderRadius: 2,
-            border: '2px solid',
-            borderColor: 'error.main',
+            border: '1px solid #D02E2E4D',
+            borderLeft: '4px solid #D02E2E',
           }}
         >
-          <Typography variant="h6" color="error.dark" fontWeight={600} gutterBottom>
+          <Typography variant="h6" sx={{ color: '#D02E2E' }} fontWeight={600} gutterBottom>
             ⚠️ Important
           </Typography>
-          <Typography variant="body2" color="error.dark">
+          <Typography variant="body2" sx={{ color: '#b12525' }}>
             For life-threatening emergencies, call 911 immediately. Do not wait or try to drive yourself to the hospital.
             Emergency services can provide immediate assistance and get you the help you need faster.
           </Typography>

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button, Chip } from '@mui/material';
+import { ArrowBack, ExpandMore, ChevronRight } from '@mui/icons-material';
 import Spinner from '../components/Spinner';
-import Badge from '../components/Badge';
 import type { CustomerAction } from '../types/policy';
 import { actionApi } from '../services/mockApi';
 import './Actions.css';
@@ -45,33 +46,23 @@ const Actions = () => {
     });
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusChipSx = (status: string) => {
     switch (status) {
-      case 'pending':
-        return 'yellow';
-      case 'in_review':
-        return 'blue';
+      case 'pending':   return { bgcolor: '#E8DE2320', border: '1px solid #E8DE234D' };
+      case 'in_review': return { bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D' };
       case 'approved':
-        return 'green';
-      case 'completed':
-        return 'green';
-      case 'rejected':
-        return 'red';
-      default:
-        return 'grey';
+      case 'completed': return { bgcolor: '#37A52620', border: '1px solid #37A5264D' };
+      case 'rejected':  return { bgcolor: '#D02E2E20', border: '1px solid #D02E2E4D' };
+      default:          return { bgcolor: '#80828520', border: '1px solid #8082854D' };
     }
   };
 
-  const getPriorityColor = (priority: string) => {
+  const getPriorityChipSx = (priority: string) => {
     switch (priority) {
-      case 'high':
-        return 'red';
-      case 'medium':
-        return 'yellow';
-      case 'low':
-        return 'blue';
-      default:
-        return 'grey';
+      case 'high':   return { bgcolor: '#D02E2E20', border: '1px solid #D02E2E4D' };
+      case 'medium': return { bgcolor: '#F6921E20', border: '1px solid #F6921E4D' };
+      case 'low':    return { bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D' };
+      default:       return { bgcolor: '#80828520', border: '1px solid #8082854D' };
     }
   };
 
@@ -106,9 +97,13 @@ const Actions = () => {
   return (
     <div className="actions-container">
       <div className="actions-header">
-        <button className="back-button" onClick={() => navigate('/')}>
-          ← Back to Dashboard
-        </button>
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={() => navigate('/')}
+          sx={{ color: '#1B75BB', fontWeight: 600 }}
+        >
+          Back to Dashboard
+        </Button>
       </div>
 
       <h1>To-Do & Requests</h1>
@@ -122,7 +117,13 @@ const Actions = () => {
           <div className="actions-inset">
             <div className="actions-list">
               {pendingActions.map(action => (
-                <div key={action.id} className="action-item">
+                <div
+                    key={action.id}
+                    className="action-item"
+                    style={{
+                      borderLeft: `4px solid ${action.priority === 'high' ? '#D02E2E' : action.priority === 'medium' ? '#F6921E' : '#1B75BB'}`,
+                    }}
+                  >
                   <div className="action-header">
                     <div className="action-title-area">
                       <h3>{action.title}</h3>
@@ -131,13 +132,15 @@ const Actions = () => {
                       </p>
                     </div>
                     <div className="action-badges">
-                      <Badge
+                      <Chip
                         label={action.priority.toUpperCase()}
-                        color={getPriorityColor(action.priority) as any}
+                        size="small"
+                        sx={{ ...getPriorityChipSx(action.priority), color: '#000000', fontWeight: 600 }}
                       />
-                      <Badge
+                      <Chip
                         label={action.status.replace('_', ' ').toUpperCase()}
-                        color={getStatusColor(action.status) as any}
+                        size="small"
+                        sx={{ ...getStatusChipSx(action.status), color: '#000000', fontWeight: 600 }}
                       />
                     </div>
                   </div>
@@ -168,10 +171,10 @@ const Actions = () => {
                           </div>
                           <div className="lifecycle-content">
                             <div className="lifecycle-status">
-                              <Badge
+                              <Chip
                                 label={step.status.replace('_', ' ').toUpperCase()}
-                                color={getStatusColor(step.status) as any}
-                                
+                                size="small"
+                                sx={{ ...getStatusChipSx(step.status), color: '#000000', fontWeight: 600 }}
                               />
                               <span className="lifecycle-time">{formatDateTime(step.timestamp)}</span>
                             </div>
@@ -187,18 +190,31 @@ const Actions = () => {
 
                   {action.status === 'pending' && (
                     <div className="action-buttons">
-                      <button
-                        className="complete-button"
+                      <Button
+                        variant="contained"
                         onClick={() => handleCompleteAction(action.id)}
+                        sx={{
+                          minHeight: 44,
+                          fontWeight: 600,
+                          bgcolor: '#1B75BB',
+                          '&:hover': { bgcolor: '#155f99' },
+                        }}
                       >
                         Mark as Complete
-                      </button>
-                      <button
-                        className="view-policy-button"
+                      </Button>
+                      <Button
+                        variant="outlined"
                         onClick={() => navigate(`/policy/${action.policyId}`)}
+                        sx={{
+                          minHeight: 44,
+                          fontWeight: 600,
+                          color: '#1B75BB',
+                          borderColor: '#1B75BB',
+                          '&:hover': { borderColor: '#155f99', color: '#155f99', bgcolor: '#1B75BB14' },
+                        }}
                       >
                         View Policy
-                      </button>
+                      </Button>
                     </div>
                   )}
                 </div>
@@ -221,12 +237,16 @@ const Actions = () => {
                   >
                     <div className="accordion-label">
                       <span>{action.title}</span>
-                      <Badge
+                      <Chip
                         label={action.status.replace('_', ' ').toUpperCase()}
-                        color={getStatusColor(action.status) as any}
+                        size="small"
+                        sx={{ ...getStatusChipSx(action.status), color: '#000000', fontWeight: 600 }}
                       />
                     </div>
-                    <span className="expand-icon">{expandedAction === action.id ? '▼' : '▶'}</span>
+                    {expandedAction === action.id
+                      ? <ExpandMore sx={{ color: '#808285', fontSize: 22 }} />
+                      : <ChevronRight sx={{ color: '#808285', fontSize: 22 }} />
+                    }
                   </div>
                   {expandedAction === action.id && (
                   <div className="accordion-content">
@@ -246,10 +266,10 @@ const Actions = () => {
                             </div>
                             <div className="lifecycle-content">
                               <div className="lifecycle-status">
-                                <Badge
+                                <Chip
                                   label={step.status.replace('_', ' ').toUpperCase()}
-                                  color={getStatusColor(step.status) as any}
-                                  
+                                  size="small"
+                                  sx={{ ...getStatusChipSx(step.status), color: '#000000', fontWeight: 600 }}
                                 />
                                 <span className="lifecycle-time">{formatDateTime(step.timestamp)}</span>
                               </div>

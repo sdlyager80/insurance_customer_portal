@@ -439,7 +439,7 @@ const AnnuityLoanPayoutRequest = ({
                     TOTAL DEDUCTIONS
                   </Typography>
                 </Box>
-                <Typography variant="h5" fontWeight="700" color="error.main">
+                <Typography variant="h5" fontWeight="700" color="#000000">
                   ${illustration.totalDeductions.toLocaleString()}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
@@ -449,14 +449,14 @@ const AnnuityLoanPayoutRequest = ({
                 </Typography>
               </Paper>
 
-              <Paper elevation={0} sx={{ p: 2, border: 1, borderColor: 'success.main', bgcolor: 'success.50' }}>
+              <Paper elevation={0} sx={{ p: 2, border: 1, borderColor: '#37A5264D', bgcolor: '#37A52610' }}>
                 <Box display="flex" alignItems="center" gap={1} mb={1}>
-                  <TrendingUp color="success" fontSize="small" />
+                  <TrendingUp sx={{ color: '#37A526' }} fontSize="small" />
                   <Typography variant="caption" fontWeight="600" color="text.secondary">
                     NET AMOUNT RECEIVED
                   </Typography>
                 </Box>
-                <Typography variant="h5" fontWeight="700" color="success.main">
+                <Typography variant="h5" fontWeight="700" color="#000000">
                   ${illustration.netAmountReceived.toLocaleString()}
                 </Typography>
               </Paper>
@@ -558,8 +558,8 @@ const AnnuityLoanPayoutRequest = ({
                           <Chip
                             label={`${annuityData.annualGrowthRate}%`}
                             size="small"
-                            color="success"
                             variant="outlined"
+                            sx={{ color: '#000000', borderColor: '#37A5264D', bgcolor: '#37A52620', fontWeight: 600 }}
                           />
                         </TableCell>
                       </TableRow>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -14,6 +14,7 @@ import {
   Stack,
   Divider,
 } from '@mui/material';
+import { Lock } from '@mui/icons-material';
 
 interface ContactPreferencesData {
   phone: string;
@@ -73,6 +74,7 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
   const [hasChanges, setHasChanges] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const dialogContentRef = useRef<HTMLDivElement>(null);
 
   // Reset form when dialog opens/closes
   useEffect(() => {
@@ -129,6 +131,13 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
       },
     }));
     setHasChanges(true);
+    if (validationErrors.methods) {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.methods;
+        return newErrors;
+      });
+    }
   };
 
   const handleSave = () => {
@@ -145,6 +154,10 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
 
     if (preferences.alternateEmail && !validateEmail(preferences.alternateEmail)) {
       errors.alternateEmail = 'Invalid email format';
+    }
+
+    if (!Object.values(preferences.preferredMethods).some((v) => v)) {
+      errors.methods = 'Please select at least one communication method';
     }
 
     if (Object.keys(errors).length > 0) {
@@ -180,6 +193,13 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
       onClose={handleCancel}
       maxWidth="sm"
       fullWidth
+      TransitionProps={{
+        onEntered: () => {
+          if (dialogContentRef.current) {
+            dialogContentRef.current.scrollTop = 0;
+          }
+        },
+      }}
       PaperProps={{
         sx: {
           borderRadius: 2,
@@ -187,7 +207,7 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
       }}
     >
       <DialogTitle>
-        <Typography variant="h5" fontWeight="600">
+        <Typography variant="h5" fontWeight={600}>
           Contact Preferences
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
@@ -195,7 +215,7 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
         </Typography>
       </DialogTitle>
 
-      <DialogContent>
+      <DialogContent ref={dialogContentRef}>
         <Stack spacing={3} sx={{ mt: 1 }}>
           {/* Success Alert */}
           {showSuccessAlert && (
@@ -207,7 +227,7 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
           {/* Empty State Alert */}
           {isEmpty && !showSuccessAlert && (
             <Alert severity="info" icon={<span>ℹ️</span>}>
-              <Typography variant="subtitle2" fontWeight="600">
+              <Typography variant="subtitle2" fontWeight={600}>
                 No contact preferences set
               </Typography>
               <Typography variant="body2">
@@ -218,16 +238,29 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
 
           {/* Contact Information Section */}
           <Box>
-            <Typography variant="subtitle1" fontWeight="600" gutterBottom>
+            <Typography variant="subtitle1" fontWeight={600} gutterBottom>
               Contact Information
             </Typography>
 
             <Stack spacing={2} sx={{ mt: 2 }}>
               {/* Primary Email (read-only) */}
-              <Box>
-                <Typography variant="body2" fontWeight="600" gutterBottom>
-                  Primary Email
-                </Typography>
+              <Box
+                sx={{
+                  p: 1.5,
+                  bgcolor: 'rgba(0,0,0,0.04)',
+                  borderRadius: 1.5,
+                  border: '1px solid rgba(0,0,0,0.08)',
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 1 }}>
+                  <Lock sx={{ fontSize: 14, color: '#808285' }} />
+                  <Typography variant="body2" fontWeight={600}>
+                    Primary Email
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: '#808285', ml: 'auto', fontStyle: 'italic' }}>
+                    Read-only
+                  </Typography>
+                </Box>
                 <TextField
                   fullWidth
                   value={userEmail}
@@ -239,9 +272,10 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
 
               {/* Alternate Email */}
               <Box>
-                <Typography variant="body2" fontWeight="600" gutterBottom>
-                  Alternate Email
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 0.5 }}>
+                  <Typography variant="body2" fontWeight={600}>Alternate Email</Typography>
+                  <Typography variant="caption" sx={{ color: '#808285' }}>(Optional)</Typography>
+                </Box>
                 <TextField
                   fullWidth
                   value={preferences.alternateEmail}
@@ -255,9 +289,10 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
 
               {/* Phone */}
               <Box>
-                <Typography variant="body2" fontWeight="600" gutterBottom>
-                  Work Phone
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 0.5 }}>
+                  <Typography variant="body2" fontWeight={600}>Work Phone</Typography>
+                  <Typography variant="caption" sx={{ color: '#808285' }}>(Optional)</Typography>
+                </Box>
                 <TextField
                   fullWidth
                   value={preferences.phone}
@@ -271,9 +306,10 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
 
               {/* Mobile */}
               <Box>
-                <Typography variant="body2" fontWeight="600" gutterBottom>
-                  Mobile Phone
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 0.5 }}>
+                  <Typography variant="body2" fontWeight={600}>Mobile Phone</Typography>
+                  <Typography variant="caption" sx={{ color: '#808285' }}>(Optional)</Typography>
+                </Box>
                 <TextField
                   fullWidth
                   value={preferences.mobile}
@@ -287,9 +323,10 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
 
               {/* Availability */}
               <Box>
-                <Typography variant="body2" fontWeight="600" gutterBottom>
-                  Availability Notes
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 0.5 }}>
+                  <Typography variant="body2" fontWeight={600}>Availability Notes</Typography>
+                  <Typography variant="caption" sx={{ color: '#808285' }}>(Optional)</Typography>
+                </Box>
                 <TextField
                   fullWidth
                   value={preferences.availability}
@@ -305,16 +342,29 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
 
           {/* Preferred Communication Methods */}
           <Box>
-            <Typography variant="subtitle1" fontWeight="600" gutterBottom>
-              Preferred Communication Methods
+            <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.5 }}>
+              <Typography variant="subtitle1" fontWeight={600}>
+                Preferred Communication Methods
+              </Typography>
+              <Typography sx={{ color: '#D02E2E', fontWeight: 700, lineHeight: 1.2 }}>*</Typography>
+            </Box>
+            <Typography variant="caption" sx={{ color: '#808285' }}>
+              Select at least one method
             </Typography>
 
-            <Stack spacing={1} sx={{ mt: 2 }}>
+            {validationErrors.methods && (
+              <Alert severity="error" sx={{ mt: 1, py: 0.5 }}>
+                {validationErrors.methods}
+              </Alert>
+            )}
+
+            <Stack spacing={1} sx={{ mt: 1.5 }}>
               <FormControlLabel
                 control={
                   <Checkbox
                     checked={preferences.preferredMethods.email}
                     onChange={() => handleMethodToggle('email')}
+                    sx={{ color: '#808285', '&.Mui-checked': { color: '#1B75BB' } }}
                   />
                 }
                 label="Email"
@@ -324,6 +374,7 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
                   <Checkbox
                     checked={preferences.preferredMethods.phone}
                     onChange={() => handleMethodToggle('phone')}
+                    sx={{ color: '#808285', '&.Mui-checked': { color: '#1B75BB' } }}
                   />
                 }
                 label="Phone Call"
@@ -333,6 +384,7 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
                   <Checkbox
                     checked={preferences.preferredMethods.text}
                     onChange={() => handleMethodToggle('text')}
+                    sx={{ color: '#808285', '&.Mui-checked': { color: '#1B75BB' } }}
                   />
                 }
                 label="Text/SMS"
@@ -342,6 +394,7 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
                   <Checkbox
                     checked={preferences.preferredMethods.portal}
                     onChange={() => handleMethodToggle('portal')}
+                    sx={{ color: '#808285', '&.Mui-checked': { color: '#1B75BB' } }}
                   />
                 }
                 label="Portal Notifications"
@@ -352,13 +405,14 @@ const ContactPreferences = ({ open, onClose, userEmail = 'customer@example.com' 
       </DialogContent>
 
       <DialogActions sx={{ px: 3, pb: 2 }}>
-        <Button onClick={handleCancel} color="inherit">
+        <Button onClick={handleCancel} sx={{ color: '#1B75BB' }}>
           Cancel
         </Button>
         <Button
           onClick={handleSave}
           variant="contained"
-          disabled={!hasChanges || Object.keys(validationErrors).length > 0}
+          disabled={Object.keys(validationErrors).length > 0}
+          sx={{ bgcolor: '#1B75BB', '&:hover': { bgcolor: '#155f99' } }}
         >
           Save Changes
         </Button>

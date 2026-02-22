@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   ThemeProvider,
@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import { Person, ContactPhone, Dashboard as DashboardIcon, Assignment, LocalHospital, Event, Calculate, KeyboardArrowDown } from '@mui/icons-material';
 import { theme } from './theme';
+import { policyApi } from './services/mockApi';
 import Dashboard from './pages/DashboardPremium';
 import PolicyDetails from './pages/PolicyDetailsPremium';
 import Actions from './pages/Actions';
@@ -37,6 +38,20 @@ function AppContent() {
   const [servicesAnchorEl, setServicesAnchorEl] = useState<null | HTMLElement>(null);
   const [isContactPreferencesOpen, setIsContactPreferencesOpen] = useState(false);
   const [careOptionsModalOpen, setCareOptionsModalOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState('user@bloominsurance.com');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    policyApi.getAllPolicies().then((policies) => {
+      if (policies.length > 0) {
+        const { firstName } = policies[0].insured;
+        setUserEmail(`${firstName.toLowerCase()}@bloominsurance.com`);
+      }
+    });
+  }, []);
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -124,8 +139,7 @@ function AppContent() {
                 sx={{
                   color: 'inherit',
                   fontWeight: isActive('/') ? 700 : 500,
-                  borderBottom: isActive('/') ? '2px solid' : '2px solid transparent',
-                  borderColor: 'primary.main',
+                  borderBottom: isActive('/') ? '2px solid #1B75BB' : '2px solid transparent',
                   borderRadius: 0,
                   px: 2,
                   minHeight: 44,
@@ -144,8 +158,7 @@ function AppContent() {
                 sx={{
                   color: 'inherit',
                   fontWeight: isActive('/actions') ? 700 : 500,
-                  borderBottom: isActive('/actions') ? '2px solid' : '2px solid transparent',
-                  borderColor: 'primary.main',
+                  borderBottom: isActive('/actions') ? '2px solid #1B75BB' : '2px solid transparent',
                   borderRadius: 0,
                   px: 2,
                   minHeight: 44,
@@ -255,7 +268,7 @@ function AppContent() {
                   }}
                 >
                   <ListItemIcon>
-                    <LocalHospital fontSize="small" sx={{ color: '#2e7d32' }} />
+                    <LocalHospital fontSize="small" sx={{ color: '#37A526' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary="Find Care"
@@ -273,7 +286,7 @@ function AppContent() {
                   }}
                 >
                   <ListItemIcon>
-                    <Event fontSize="small" sx={{ color: '#9c27b0' }} />
+                    <Event fontSize="small" sx={{ color: '#1B75BB' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary="My Appointments"
@@ -291,7 +304,7 @@ function AppContent() {
                   }}
                 >
                   <ListItemIcon>
-                    <Calculate fontSize="small" sx={{ color: '#d32f2f' }} />
+                    <Calculate fontSize="small" sx={{ color: '#F6921E' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary="Coverage Calculator"
@@ -348,7 +361,7 @@ function AppContent() {
       <ContactPreferences
         open={isContactPreferencesOpen}
         onClose={() => setIsContactPreferencesOpen(false)}
-        userEmail="customer@bloominsurance.com"
+        userEmail={userEmail}
       />
 
       <CareOptionsModal

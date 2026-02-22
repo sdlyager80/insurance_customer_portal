@@ -109,7 +109,7 @@ const IllustrationDetails = () => {
       {/* Header Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 100%)',
+          bgcolor: '#1B75BB',
           pt: 4,
           pb: 8,
         }}
@@ -144,7 +144,7 @@ const IllustrationDetails = () => {
                   sx={{
                     bgcolor: 'rgba(255, 255, 255, 0.2)',
                     color: 'white',
-                    fontFamily: 'monospace',
+                    letterSpacing: 0.4,
                     fontWeight: 600,
                   }}
                 />
@@ -241,7 +241,7 @@ const IllustrationDetails = () => {
                   <Typography variant="caption" color="text.secondary">
                     Death Benefit
                   </Typography>
-                  <Typography variant="h5" fontWeight={700} sx={{ color: '#37A526' }}>
+                  <Typography variant="h5" fontWeight={700} color="#000000">
                     {formatCurrency(illustration.policyDetails.faceAmount)}
                   </Typography>
                 </Box>
@@ -278,7 +278,7 @@ const IllustrationDetails = () => {
                   <Typography variant="caption" color="text.secondary">
                     Cash Surrender Value
                   </Typography>
-                  <Typography variant="h6" fontWeight={700} sx={{ color: '#F6921E' }}>
+                  <Typography variant="h6" fontWeight={700} color="#000000">
                     {formatCurrency(illustration.currentValues.cashSurrenderValue)}
                   </Typography>
                 </Box>
@@ -353,13 +353,13 @@ const IllustrationDetails = () => {
                     <TableCell align="right">
                       {formatCurrency(proj.cashSurrenderValue.guaranteed)}
                     </TableCell>
-                    <TableCell align="right" sx={{ color: '#1B75BB', fontWeight: 600 }}>
+                    <TableCell align="right" sx={{ color: '#000000', fontWeight: 600 }}>
                       {formatCurrency(proj.cashSurrenderValue.illustrated)}
                     </TableCell>
                     <TableCell align="right">
                       {formatCurrency(proj.deathBenefit.guaranteed)}
                     </TableCell>
-                    <TableCell align="right" sx={{ color: '#37A526', fontWeight: 600 }}>
+                    <TableCell align="right" sx={{ color: '#000000', fontWeight: 600 }}>
                       {formatCurrency(proj.deathBenefit.illustrated)}
                     </TableCell>
                   </TableRow>

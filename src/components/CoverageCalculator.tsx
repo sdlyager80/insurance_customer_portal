@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { alpha } from '@mui/material/styles';
 import {
   Box,
   Paper,
@@ -85,7 +86,7 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
           <Typography variant="body2" fontWeight={600}>
             {payload[0].name}
           </Typography>
-          <Typography variant="h6" color="primary">
+          <Typography variant="h6" color="#000000">
             {formatCurrency(payload[0].value)}
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -110,7 +111,7 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
       {/* Header */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 100%)',
+          bgcolor: '#1B75BB',
           p: 3,
           color: 'white',
         }}
@@ -137,30 +138,51 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
 
         {/* Results Summary */}
         <Box sx={{ mt: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
-          <Paper elevation={0} sx={{ p: 2, bgcolor: 'white', color: '#1B75BB' }}>
-            <Typography variant="caption" color="text.secondary" fontWeight={600}>
-              Recommended Coverage
-            </Typography>
-            <Typography variant="h5" fontWeight={700}>
+          <Box sx={{ p: 2.5, bgcolor: 'white', borderRadius: 2, borderLeft: '4px solid #37A526', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 0.5 }}>
+              <TrendingUp sx={{ fontSize: 15, color: '#37A526' }} />
+              <Typography variant="caption" sx={{ color: '#808285', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                Recommended Coverage
+              </Typography>
+            </Box>
+            <Typography variant="h5" fontWeight={700} color="#000000">
               {formatCurrency(recommendedCoverage)}
             </Typography>
-          </Paper>
-          <Paper elevation={0} sx={{ p: 2, bgcolor: 'white', color: '#1B75BB' }}>
-            <Typography variant="caption" color="text.secondary" fontWeight={600}>
-              Current Coverage
+            <Typography variant="caption" sx={{ color: '#808285', display: 'block', mt: 0.5 }}>
+              Total needs: {formatCurrency(totalNeeds)}
             </Typography>
-            <Typography variant="h5" fontWeight={700}>
+          </Box>
+
+          <Box sx={{ p: 2.5, bgcolor: 'white', borderRadius: 2, borderLeft: '4px solid #00ADEE', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 0.5 }}>
+              <CheckCircle sx={{ fontSize: 15, color: '#00ADEE' }} />
+              <Typography variant="caption" sx={{ color: '#808285', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                Current Coverage
+              </Typography>
+            </Box>
+            <Typography variant="h5" fontWeight={700} color="#000000">
               {formatCurrency(currentCoverage)}
             </Typography>
-          </Paper>
-          <Paper elevation={0} sx={{ p: 2, bgcolor: isUnderinsured ? '#FFF5E6' : '#E8F5E9', color: isUnderinsured ? '#D02E2E' : '#8BC53F' }}>
-            <Typography variant="caption" color="text.secondary" fontWeight={600}>
-              {isUnderinsured ? 'Coverage Gap' : 'Coverage Status'}
-            </Typography>
-            <Typography variant="h5" fontWeight={700}>
+          </Box>
+
+          <Box sx={{
+            p: 2.5, bgcolor: 'white', borderRadius: 2,
+            borderLeft: `4px solid ${isUnderinsured ? '#D02E2E' : '#37A526'}`,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+          }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 0.5 }}>
+              {isUnderinsured
+                ? <Warning sx={{ fontSize: 15, color: '#D02E2E' }} />
+                : <CheckCircle sx={{ fontSize: 15, color: '#37A526' }} />
+              }
+              <Typography variant="caption" sx={{ color: '#808285', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                {isUnderinsured ? 'Coverage Gap' : 'Coverage Status'}
+              </Typography>
+            </Box>
+            <Typography variant="h5" fontWeight={700} color="#000000">
               {isUnderinsured ? formatCurrency(coverageGap) : '✓ Covered'}
             </Typography>
-          </Paper>
+          </Box>
         </Box>
 
         {/* Coverage Progress Bar */}
@@ -280,8 +302,7 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
                   </Box>
                   <Chip
                     label={`Total: ${formatCurrency(incomeReplacement)}`}
-                    color="primary"
-                    variant="outlined"
+                    sx={{ bgcolor: '#1B75BB1A', border: '1px solid #1B75BB4D', color: '#000000', fontWeight: 600 }}
                   />
                 </Stack>
               </Box>
@@ -319,8 +340,7 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
                   />
                   <Chip
                     label={`Total: ${formatCurrency(debtCoverage)}`}
-                    sx={{ bgcolor: '#D02E2E20', color: '#D02E2E' }}
-                    variant="outlined"
+                    sx={{ bgcolor: '#D02E2E1A', border: '1px solid #D02E2E4D', color: '#000000', fontWeight: 600 }}
                   />
                 </Stack>
               </Box>
@@ -361,8 +381,7 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
                   />
                   <Chip
                     label={`Total: ${formatCurrency(educationFunding)}`}
-                    sx={{ bgcolor: '#8BC53F20', color: '#8BC53F' }}
-                    variant="outlined"
+                    sx={{ bgcolor: '#8BC53F1A', border: '1px solid #8BC53F4D', color: '#000000', fontWeight: 600 }}
                   />
                 </Stack>
               </Box>
@@ -486,7 +505,7 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
                     <Typography variant="body1" fontWeight={700}>
                       Recommended Coverage:
                     </Typography>
-                    <Typography variant="body1" fontWeight={700} color="primary">
+                    <Typography variant="body1" fontWeight={700} color="#000000">
                       {formatCurrency(recommendedCoverage)}
                     </Typography>
                   </Box>
@@ -497,10 +516,10 @@ const CoverageCalculator = ({ currentCoverage = 0, onRecommendationAccept }: Cov
                     variant="contained"
                     fullWidth
                     size="large"
-                    sx={{ mt: 2 }}
+                    sx={{ mt: 2, bgcolor: '#1B75BB', '&:hover': { bgcolor: '#155f99' } }}
                     onClick={() => onRecommendationAccept(recommendedCoverage)}
                   >
-                    Get Quote for {formatCurrency(recommendedCoverage)}
+                    Get a Quote
                   </Button>
                 )}
               </Paper>

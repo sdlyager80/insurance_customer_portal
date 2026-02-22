@@ -69,28 +69,21 @@ const Dashboard = () => {
     }
   };
 
-  const getStatusColor = (status: string): 'success' | 'warning' | 'error' | 'default' => {
+  const getStatusChipSx = (status: string) => {
     switch (status) {
-      case 'active':
-        return 'success';
-      case 'pending':
-        return 'warning';
+      case 'active': return { bgcolor: '#37A52620', borderColor: '#37A5264D' };
+      case 'pending': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
       case 'lapsed':
-      case 'cancelled':
-        return 'error';
-      default:
-        return 'default';
+      case 'cancelled': return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
+      default: return { bgcolor: '#80828520', borderColor: '#8082854D' };
     }
   };
 
-  const getPriorityColor = (priority: string): 'error' | 'warning' | 'info' => {
+  const getPriorityChipSx = (priority: string) => {
     switch (priority) {
-      case 'high':
-        return 'error';
-      case 'medium':
-        return 'warning';
-      default:
-        return 'info';
+      case 'high': return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
+      case 'medium': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
+      default: return { bgcolor: '#1B75BB20', borderColor: '#1B75BB4D' };
     }
   };
 
@@ -137,7 +130,7 @@ const Dashboard = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 50%, #8BC53F 100%)',
+          bgcolor: '#1B75BB',
           color: 'white',
           py: { xs: 4, sm: 6, md: 8 },
           px: { xs: 2, sm: 3 },
@@ -248,10 +241,10 @@ const Dashboard = () => {
                         />
                         {action.dueDate && (
                           <Chip
-                            icon={<Schedule />}
+                            icon={<Schedule sx={{ color: '#000000 !important' }} />}
                             label={`Due ${formatDate(action.dueDate)}`}
                             size="small"
-                            color={getPriorityColor(action.priority)}
+                            sx={{ color: '#000000', fontWeight: 600, border: '1px solid', ...getPriorityChipSx(action.priority) }}
                           />
                         )}
                       </Stack>
@@ -311,16 +304,16 @@ const Dashboard = () => {
                               <Typography
                                 variant="caption"
                                 color="text.secondary"
-                                sx={{ fontFamily: 'monospace' }}
+                                sx={{ letterSpacing: 0.4, fontWeight: 500 }}
                               >
                                 {policy.policyNumber}
                               </Typography>
                             </Box>
                             <Chip
                               label={policy.status.toUpperCase()}
-                              color={getStatusColor(policy.status)}
                               size="small"
-                              icon={<CheckCircle />}
+                              icon={<CheckCircle sx={{ color: '#000000 !important' }} />}
+                              sx={{ color: '#000000', fontWeight: 600, border: '1px solid', ...getStatusChipSx(policy.status) }}
                             />
                           </Stack>
 
@@ -408,16 +401,16 @@ const Dashboard = () => {
                               <Typography
                                 variant="caption"
                                 color="text.secondary"
-                                sx={{ fontFamily: 'monospace' }}
+                                sx={{ letterSpacing: 0.4, fontWeight: 500 }}
                               >
                                 {policy.policyNumber}
                               </Typography>
                             </Box>
                             <Chip
                               label={policy.status.toUpperCase()}
-                              color={getStatusColor(policy.status)}
                               size="small"
-                              icon={<CheckCircle />}
+                              icon={<CheckCircle sx={{ color: '#000000 !important' }} />}
+                              sx={{ color: '#000000', fontWeight: 600, border: '1px solid', ...getStatusChipSx(policy.status) }}
                             />
                           </Stack>
 
@@ -505,16 +498,16 @@ const Dashboard = () => {
                               <Typography
                                 variant="caption"
                                 color="text.secondary"
-                                sx={{ fontFamily: 'monospace' }}
+                                sx={{ letterSpacing: 0.4, fontWeight: 500 }}
                               >
                                 {policy.policyNumber}
                               </Typography>
                             </Box>
                             <Chip
                               label={policy.status.toUpperCase()}
-                              color={getStatusColor(policy.status)}
                               size="small"
-                              icon={<CheckCircle />}
+                              icon={<CheckCircle sx={{ color: '#000000 !important' }} />}
+                              sx={{ color: '#000000', fontWeight: 600, border: '1px solid', ...getStatusChipSx(policy.status) }}
                             />
                           </Stack>
 

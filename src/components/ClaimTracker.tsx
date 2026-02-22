@@ -35,7 +35,7 @@ import {
   VerifiedUser,
   Error as ErrorIcon,
   Timeline,
-  SmartToy,
+  Assessment,
   AccessTime,
 } from '@mui/icons-material';
 
@@ -91,11 +91,11 @@ const ClaimTracker = ({
     { timestamp: '2026-02-10 2:00 PM', action: 'Claim submitted', performer: 'You' },
   ]);
 
-  // AI-powered processing percentage (simulated)
+  // Automated processing percentage (simulated)
   const [processingPercentage, setProcessingPercentage] = useState(65);
 
   useEffect(() => {
-    // Simulate AI processing progress
+    // Simulate automated processing progress
     const interval = setInterval(() => {
       setProcessingPercentage((prev) => {
         if (prev >= 95) return prev;
@@ -182,16 +182,12 @@ const ClaimTracker = ({
     }
   };
 
-  const getStatusColor = (status: Document['status']) => {
+  const getStatusChipSx = (status: Document['status']) => {
     switch (status) {
-      case 'verified':
-        return 'success';
-      case 'uploaded':
-        return 'warning';
-      case 'rejected':
-        return 'error';
-      default:
-        return 'default';
+      case 'verified': return { bgcolor: '#37A52620', borderColor: '#37A5264D' };
+      case 'uploaded': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
+      case 'rejected': return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
+      default: return { bgcolor: '#80828520', borderColor: '#8082854D' };
     }
   };
 
@@ -215,7 +211,7 @@ const ClaimTracker = ({
           p: 3,
           mb: 3,
           borderRadius: 3,
-          background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 100%)',
+          bgcolor: '#1B75BB',
           color: 'white',
         }}
       >
@@ -279,16 +275,16 @@ const ClaimTracker = ({
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '2fr 1fr' }, gap: 3 }}>
         {/* Left Column */}
         <Stack spacing={3}>
-          {/* AI Processing Status */}
+          {/* Automated Processing Status */}
           <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                 <Avatar sx={{ bgcolor: 'primary.main' }}>
-                  <SmartToy />
+                  <Assessment />
                 </Avatar>
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="h6" fontWeight={600}>
-                    AI-Powered Processing
+                    Automated Processing
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Your claim is {processingPercentage.toFixed(0)}% processed
@@ -415,7 +411,7 @@ const ClaimTracker = ({
                           {doc.name}
                         </Typography>
                         {doc.required && (
-                          <Chip label="Required" size="small" color="error" variant="outlined" />
+                          <Chip label="Required" size="small" variant="outlined" sx={{ color: '#000000', borderColor: '#D02E2E4D', bgcolor: '#D02E2E10', fontWeight: 600 }} />
                         )}
                       </Box>
                     }
@@ -424,8 +420,7 @@ const ClaimTracker = ({
                         <Chip
                           label={doc.status.toUpperCase()}
                           size="small"
-                          color={getStatusColor(doc.status) as any}
-                          sx={{ mr: 1 }}
+                          sx={{ mr: 1, color: '#000000', fontWeight: 600, border: '1px solid', ...getStatusChipSx(doc.status) }}
                         />
                         {doc.uploadedDate && `Uploaded: ${doc.uploadedDate}`}
                         {doc.rejectionReason && (

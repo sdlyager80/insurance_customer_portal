@@ -145,7 +145,7 @@ const CareOptionsModal = ({ open, onClose }: CareOptionsModalProps) => {
           ))}
         </Stack>
 
-        <Box sx={{ mt: 3, p: 2, bgcolor: 'info.50', borderRadius: 2 }}>
+        <Box sx={{ mt: 3, p: 2, bgcolor: '#1B75BB08', border: '1px solid #1B75BB20', borderRadius: 2 }}>
           <Typography variant="caption" color="text.secondary">
             <strong>Need help deciding?</strong> For non-emergency situations, start with Telehealth or In-Person Care.
             For life-threatening emergencies, call 911 or visit the nearest emergency room immediately.

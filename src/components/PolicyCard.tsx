@@ -1,4 +1,4 @@
-import Badge from './Badge';
+import { Chip } from '@mui/material';
 import type { Policy } from '../types/policy';
 import './PolicyCard.css';
 
@@ -23,18 +23,18 @@ const PolicyCard = ({ policy, onClick }: PolicyCardProps) => {
     });
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusChipSx = (status: string) => {
     switch (status) {
       case 'active':
-        return 'green';
+        return { bgcolor: '#37A52620', borderColor: '#37A5264D' };
       case 'pending':
-        return 'yellow';
+        return { bgcolor: '#E8DE2320', borderColor: '#E8DE234D' };
       case 'lapsed':
-        return 'orange';
+        return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
       case 'cancelled':
-        return 'red';
+        return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
       default:
-        return 'grey';
+        return { bgcolor: '#80828520', borderColor: '#8082854D' };
     }
   };
 
@@ -62,9 +62,10 @@ const PolicyCard = ({ policy, onClick }: PolicyCardProps) => {
             <h3 className="policy-product-name">{policy.productName}</h3>
             <p className="policy-number">{policy.policyNumber}</p>
           </div>
-          <Badge
+          <Chip
             label={policy.status.toUpperCase()}
-            color={getStatusColor(policy.status) as any}
+            size="small"
+            sx={{ ...getStatusChipSx(policy.status), color: '#000000', fontWeight: 600, border: '1px solid' }}
           />
         </div>
 

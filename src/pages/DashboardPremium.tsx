@@ -74,28 +74,21 @@ const Dashboard = () => {
     }
   };
 
-  const getStatusColor = (status: string): 'success' | 'warning' | 'error' | 'default' => {
+  const getStatusChipSx = (status: string) => {
     switch (status) {
-      case 'active':
-        return 'success';
-      case 'pending':
-        return 'warning';
+      case 'active': return { bgcolor: '#37A52620', borderColor: '#37A5264D' };
+      case 'pending': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
       case 'lapsed':
-      case 'cancelled':
-        return 'error';
-      default:
-        return 'default';
+      case 'cancelled': return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
+      default: return { bgcolor: '#80828520', borderColor: '#8082854D' };
     }
   };
 
-  const getPriorityColor = (priority: string): 'error' | 'warning' | 'info' => {
+  const getPriorityChipSx = (priority: string) => {
     switch (priority) {
-      case 'high':
-        return 'error';
-      case 'medium':
-        return 'warning';
-      default:
-        return 'info';
+      case 'high': return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
+      case 'medium': return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
+      default: return { bgcolor: '#1B75BB20', borderColor: '#1B75BB4D' };
     }
   };
 
@@ -135,8 +128,7 @@ const Dashboard = () => {
     return 'Good evening';
   };
 
-  // Get user's first name (would come from auth context in real app)
-  const userName = 'Sarah'; // In production, get from user context
+  const userName = policies[0]?.insured.firstName ?? 'there';
   const greeting = `${getTimeBasedGreeting()}, ${userName}!`;
 
   if (loading) {
@@ -162,7 +154,7 @@ const Dashboard = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 100%)',
+          bgcolor: '#1B75BB',
           position: 'relative',
           overflow: 'hidden',
           pt: 6,
@@ -245,7 +237,7 @@ const Dashboard = () => {
                     <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
                       Total Coverage
                     </Typography>
-                    <Typography variant="h4" fontWeight={700} sx={{ color: '#1B75BB' }}>
+                    <Typography variant="h4" fontWeight={700} color="#000000">
                       {formatCurrency(totalCoverage)}
                     </Typography>
                   </Box>
@@ -261,7 +253,7 @@ const Dashboard = () => {
                     <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
                       Active Policies
                     </Typography>
-                    <Typography variant="h4" fontWeight={700} sx={{ color: '#37A526' }}>
+                    <Typography variant="h4" fontWeight={700} color="#000000">
                       {policies.length}
                     </Typography>
                   </Box>
@@ -277,7 +269,7 @@ const Dashboard = () => {
                     <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
                       Monthly Premium
                     </Typography>
-                    <Typography variant="h4" fontWeight={700} sx={{ color: '#F6921E' }}>
+                    <Typography variant="h4" fontWeight={700} color="#000000">
                       {formatCurrency(totalPremium)}
                     </Typography>
                   </Box>
@@ -296,7 +288,7 @@ const Dashboard = () => {
                 <Typography variant="h5" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
                   To-Do Items
                 </Typography>
-                <Chip label={pendingActions.length} size="small" color="error" />
+                <Chip label={pendingActions.length} size="small" sx={{ color: '#000000', fontWeight: 600, bgcolor: '#D02E2E20', border: '1px solid #D02E2E4D' }} />
               </Box>
             </Box>
             <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 2 }}>
@@ -325,26 +317,39 @@ const Dashboard = () => {
                         <Chip
                           label={action.priority.toUpperCase()}
                           size="small"
-                          color={getPriorityColor(action.priority)}
-                          sx={{ fontWeight: 600, fontSize: '0.7rem' }}
+                          sx={{ fontWeight: 600, fontSize: '0.7rem', color: '#000000', border: '1px solid', ...getPriorityChipSx(action.priority) }}
                         />
                       </Box>
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                         {action.description}
                       </Typography>
-                      <Stack direction="row" spacing={1} alignItems="center">
+                      <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
                         <Chip
                           label={action.policyNumber}
                           size="small"
-                          variant="outlined"
-                          sx={{ fontSize: '0.75rem', fontFamily: 'monospace' }}
+                          sx={{
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            letterSpacing: 0.3,
+                            color: '#000000',
+                            bgcolor: '#1B75BB20',
+                            border: '1px solid',
+                            borderColor: '#1B75BB4D',
+                          }}
                         />
                         {action.dueDate && (
                           <Chip
-                            icon={<Schedule sx={{ fontSize: 16 }} />}
+                            icon={<Schedule sx={{ fontSize: 14, color: '#000000 !important' }} />}
                             label={`Due ${formatDate(action.dueDate)}`}
                             size="small"
-                            sx={{ fontSize: '0.75rem' }}
+                            sx={{
+                              fontSize: '0.75rem',
+                              fontWeight: 600,
+                              color: '#000000',
+                              bgcolor: '#F6921E20',
+                              border: '1px solid',
+                              borderColor: '#F6921E4D',
+                            }}
                           />
                         )}
                       </Stack>
@@ -408,10 +413,9 @@ const Dashboard = () => {
                           </Avatar>
                           <Chip
                             label={policy.status.toUpperCase()}
-                            color={getStatusColor(policy.status)}
                             size="small"
-                            icon={<CheckCircle sx={{ fontSize: 16 }} />}
-                            sx={{ fontWeight: 600 }}
+                            icon={<CheckCircle sx={{ fontSize: 16, color: '#000000 !important' }} />}
+                            sx={{ fontWeight: 600, color: '#000000', border: '1px solid', ...getStatusChipSx(policy.status) }}
                           />
                         </Box>
 
@@ -422,8 +426,9 @@ const Dashboard = () => {
                           variant="caption"
                           sx={{
                             color: 'text.secondary',
-                            fontFamily: 'monospace',
                             fontSize: '0.75rem',
+                            fontWeight: 500,
+                            letterSpacing: 0.5,
                             display: 'block',
                             mb: 3,
                           }}
@@ -438,7 +443,7 @@ const Dashboard = () => {
                             <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: 0.5 }}>
                               Coverage Amount
                             </Typography>
-                            <Typography variant="h6" fontWeight={700} sx={{ color: iconColor }}>
+                            <Typography variant="h6" fontWeight={700} color="#000000">
                               {formatCurrency(policy.coverageAmount)}
                             </Typography>
                           </Box>

@@ -177,10 +177,13 @@ const FindCare = () => {
         <Box className="find-care-header">
           <Container maxWidth="lg">
             <Box position="relative" zIndex={1}>
-              <Typography variant="h2" fontWeight={700} gutterBottom>
-                Find Care
-              </Typography>
-              <Typography variant="h6" sx={{ opacity: 0.95 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+                <LocalHospital sx={{ fontSize: 36, color: 'rgba(255,255,255,0.9)' }} />
+                <Typography variant="h2" fontWeight={700} sx={{ color: 'white' }}>
+                  Find Care
+                </Typography>
+              </Box>
+              <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 400, pl: 0.5 }}>
                 Search for healthcare providers near you
               </Typography>
             </Box>
@@ -200,6 +203,7 @@ const FindCare = () => {
                   size="small"
                   startIcon={<Clear />}
                   onClick={handleClearFilters}
+                  sx={{ color: '#1B75BB', fontWeight: 600 }}
                 >
                   Clear All
                 </Button>
@@ -296,9 +300,16 @@ const FindCare = () => {
 
               {/* Distance Slider */}
               <Box sx={{ gridColumn: { xs: '1', sm: '1 / -1', lg: '1 / 3' }, px: 1 }}>
-                <Typography variant="body2" gutterBottom>
-                  Distance: {filters.distance} miles
-                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                  <Typography variant="body2" fontWeight={600} color="#000000">
+                    Distance Radius
+                  </Typography>
+                  <Chip
+                    label={`${filters.distance} miles`}
+                    size="small"
+                    sx={{ bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D', color: '#000000', fontWeight: 600 }}
+                  />
+                </Box>
                 <Slider
                   value={filters.distance}
                   onChange={(_, value) => handleFilterChange('distance', value)}
@@ -311,13 +322,19 @@ const FindCare = () => {
                     { value: 100, label: '100mi' },
                   ]}
                   valueLabelDisplay="auto"
-                  className="distance-slider"
                   disabled={!userLocation}
+                  sx={{
+                    color: '#1B75BB',
+                    '& .MuiSlider-rail': { bgcolor: '#1B75BB30' },
+                  }}
                 />
                 {!userLocation && (
-                  <Typography variant="caption" color="text.secondary">
-                    Enable location to filter by distance
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mt: 0.5, px: 1.25, py: 1, bgcolor: '#1B75BB08', border: '1px solid #1B75BB20', borderRadius: 1.5 }}>
+                    <MyLocation sx={{ fontSize: 14, color: '#1B75BB' }} />
+                    <Typography variant="caption" sx={{ color: '#808285' }}>
+                      Use the location button above to enable distance filtering
+                    </Typography>
+                  </Box>
                 )}
               </Box>
             </Box>
@@ -332,13 +349,26 @@ const FindCare = () => {
           {/* Results Section */}
           <Box sx={{ mt: 4, mb: 4 }}>
             <Box className="results-header">
-              <Box>
-                <Typography variant="h5" fontWeight={600}>
-                  {loading ? 'Searching...' : `${filteredProviders.length} Provider${filteredProviders.length !== 1 ? 's' : ''} Found`}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {hasActiveFilters && 'Filtered results based on your criteria'}
-                </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <Box sx={{
+                  minWidth: 52, height: 52,
+                  bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D',
+                  borderRadius: 2,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0,
+                }}>
+                  <Typography variant="h5" fontWeight={700} color="#000000">
+                    {loading ? '…' : filteredProviders.length}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="h6" fontWeight={700} color="#000000">
+                    {loading ? 'Searching…' : `Provider${filteredProviders.length !== 1 ? 's' : ''} Found`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {hasActiveFilters ? 'Filtered results based on your criteria' : 'Showing all available providers'}
+                  </Typography>
+                </Box>
               </Box>
 
               <Stack direction="row" spacing={1} flexWrap="wrap">
@@ -346,24 +376,21 @@ const FindCare = () => {
                   <Chip
                     label={`Country: ${filters.country}`}
                     onDelete={() => handleFilterChange('country', 'all')}
-                    color="primary"
-                    variant="outlined"
+                    sx={{ bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D', color: '#000000', fontWeight: 600 }}
                   />
                 )}
                 {filters.specialty !== 'all' && (
                   <Chip
                     label={`Specialty: ${filters.specialty}`}
                     onDelete={() => handleFilterChange('specialty', 'all')}
-                    color="primary"
-                    variant="outlined"
+                    sx={{ bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D', color: '#000000', fontWeight: 600 }}
                   />
                 )}
                 {filters.doctorName && (
                   <Chip
                     label={`Name: ${filters.doctorName}`}
                     onDelete={() => handleFilterChange('doctorName', '')}
-                    color="primary"
-                    variant="outlined"
+                    sx={{ bgcolor: '#1B75BB20', border: '1px solid #1B75BB4D', color: '#000000', fontWeight: 600 }}
                   />
                 )}
               </Stack>
@@ -373,19 +400,43 @@ const FindCare = () => {
                 exclusive
                 onChange={(_, mode) => mode && setViewMode(mode)}
                 size="small"
-                sx={{ alignSelf: { xs: 'stretch', sm: 'center' } }}
+                sx={{
+                  alignSelf: { xs: 'stretch', sm: 'center' },
+                  bgcolor: 'white',
+                  border: '1px solid #1B75BB4D',
+                  borderRadius: 2,
+                  p: 0.5,
+                  gap: 0.5,
+                  '& .MuiToggleButtonGroup-grouped': {
+                    border: 'none !important',
+                    borderRadius: '6px !important',
+                    margin: '0 !important',
+                  },
+                  '& .MuiToggleButton-root': {
+                    color: '#808285',
+                    fontWeight: 600,
+                    minHeight: 36,
+                    px: 2,
+                    flex: { xs: 1, sm: 'initial' },
+                    '&.Mui-selected': {
+                      bgcolor: '#1B75BB',
+                      color: 'white',
+                      '&:hover': { bgcolor: '#155f99' },
+                    },
+                    '&:hover:not(.Mui-selected)': {
+                      bgcolor: '#1B75BB14',
+                      color: '#1B75BB',
+                    },
+                  },
+                }}
               >
-                <ToggleButton value="list" sx={{ minHeight: 44, flex: { xs: 1, sm: 'initial' } }}>
-                  <ViewList sx={{ mr: { xs: 0, sm: 1 } }} />
-                  <Box component="span" sx={{ display: { xs: 'inline', sm: 'inline' } }}>
-                    List
-                  </Box>
+                <ToggleButton value="list">
+                  <ViewList sx={{ mr: 0.75, fontSize: 20 }} />
+                  List
                 </ToggleButton>
-                <ToggleButton value="map" sx={{ minHeight: 44, flex: { xs: 1, sm: 'initial' } }}>
-                  <MapIcon sx={{ mr: { xs: 0, sm: 1 } }} />
-                  <Box component="span" sx={{ display: { xs: 'inline', sm: 'inline' } }}>
-                    Map
-                  </Box>
+                <ToggleButton value="map">
+                  <MapIcon sx={{ mr: 0.75, fontSize: 20 }} />
+                  Map
                 </ToggleButton>
               </ToggleButtonGroup>
             </Box>

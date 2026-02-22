@@ -56,18 +56,16 @@ const ProviderCard = ({ provider, onBook }: ProviderCardProps) => {
             <Chip
               label={provider.specialty}
               size="small"
-              color="primary"
               variant="outlined"
-              sx={{ mb: 0.5 }}
+              sx={{ mb: 0.5, color: '#000000', fontWeight: 600, borderColor: '#1B75BB4D', bgcolor: '#1B75BB20' }}
             />
             {provider.telemedicine && (
               <Chip
-                icon={<VideoCall fontSize="small" />}
+                icon={<VideoCall fontSize="small" sx={{ color: '#000000 !important' }} />}
                 label="Telemedicine"
                 size="small"
-                color="success"
                 variant="outlined"
-                sx={{ ml: 0.5, mb: 0.5 }}
+                sx={{ ml: 0.5, mb: 0.5, color: '#000000', fontWeight: 600, borderColor: '#37A5264D', bgcolor: '#37A52620' }}
               />
             )}
           </Box>
@@ -109,7 +107,7 @@ const ProviderCard = ({ provider, onBook }: ProviderCardProps) => {
           {provider.distance !== undefined && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <NavigationIcon fontSize="small" color="action" />
-              <Typography variant="body2" fontWeight={600} color="primary">
+              <Typography variant="body2" fontWeight={600} color="#000000">
                 {provider.distance.toFixed(1)} miles away
               </Typography>
             </Box>

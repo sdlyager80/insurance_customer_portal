@@ -170,7 +170,7 @@ const PolicyDetailsPremium = () => {
       {/* Header Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 100%)',
+          bgcolor: '#1B75BB',
           pt: 4,
           pb: { xs: 3, sm: 4, md: 8 },
         }}
@@ -215,7 +215,7 @@ const PolicyDetailsPremium = () => {
                   sx={{
                     bgcolor: 'rgba(255, 255, 255, 0.2)',
                     color: 'white',
-                    fontFamily: 'monospace',
+                    letterSpacing: 0.4,
                     fontWeight: 600,
                   }}
                 />
@@ -261,7 +261,7 @@ const PolicyDetailsPremium = () => {
                     onClick={handleIllustrationRequest}
                     sx={{
                       bgcolor: 'white',
-                      color: policyColor,
+                      color: '#1B75BB',
                       fontWeight: 600,
                       fontSize: '0.875rem',
                       py: 0.5,
@@ -281,7 +281,7 @@ const PolicyDetailsPremium = () => {
                     onClick={() => setIsLoanPayoutDialogOpen(true)}
                     sx={{
                       bgcolor: 'white',
-                      color: policyColor,
+                      color: '#1B75BB',
                       fontWeight: 600,
                       fontSize: '0.875rem',
                       py: 0.5,
@@ -307,7 +307,7 @@ const PolicyDetailsPremium = () => {
                 borderRadius: 2,
                 overflow: 'hidden',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                border: '2px solid rgba(255, 255, 255, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
                 mx: { xs: 'auto', md: 0 },
                 flexShrink: 0,
                 alignSelf: 'flex-start',
@@ -358,7 +358,7 @@ const PolicyDetailsPremium = () => {
                 <Typography variant="body2" color="text.secondary">
                   Coverage Amount
                 </Typography>
-                <Typography variant="h4" fontWeight={700} sx={{ color: policyColor }}>
+                <Typography variant="h4" fontWeight={700} color="#000000">
                   {formatCurrency(policy.coverageAmount)}
                 </Typography>
               </Box>
@@ -371,7 +371,7 @@ const PolicyDetailsPremium = () => {
                 <Typography variant="body2" color="text.secondary">
                   {policy.paymentFrequency.charAt(0).toUpperCase() + policy.paymentFrequency.slice(1)} Premium
                 </Typography>
-                <Typography variant="h4" fontWeight={700} sx={{ color: '#F6921E' }}>
+                <Typography variant="h4" fontWeight={700} color="#000000">
                   {formatCurrency(policy.premium)}
                 </Typography>
               </Box>
@@ -384,7 +384,7 @@ const PolicyDetailsPremium = () => {
                 <Typography variant="body2" color="text.secondary">
                   Next Payment
                 </Typography>
-                <Typography variant="h6" fontWeight={700} sx={{ color: '#1B75BB' }}>
+                <Typography variant="h6" fontWeight={700} color="#000000">
                   {formatDate(policy.nextPaymentDate)}
                 </Typography>
               </Box>
@@ -546,11 +546,10 @@ const PolicyDetailsPremium = () => {
                             <Chip
                               label={beneficiary.isPrimary ? 'Primary' : 'Contingent'}
                               size="small"
-                              color={beneficiary.isPrimary ? 'primary' : 'default'}
-                              sx={{ mt: 1 }}
+                              sx={{ mt: 1, color: '#000000', fontWeight: 600, bgcolor: beneficiary.isPrimary ? '#1B75BB20' : '#80828520', border: '1px solid', borderColor: beneficiary.isPrimary ? '#1B75BB4D' : '#8082854D' }}
                             />
                           </Box>
-                          <Typography variant="h4" fontWeight={700} sx={{ color: policyColor }}>
+                          <Typography variant="h4" fontWeight={700} color="#000000">
                             {beneficiary.percentage}%
                           </Typography>
                         </Box>
@@ -625,7 +624,7 @@ const PolicyDetailsPremium = () => {
                     sx={{
                       bgcolor: '#1B75BB',
                       '&:hover': {
-                        bgcolor: '#00ADEE',
+                        bgcolor: '#155f99',
                       },
                     }}
                   >

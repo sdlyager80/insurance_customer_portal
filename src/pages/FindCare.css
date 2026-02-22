@@ -1,11 +1,11 @@
 .find-care-container {
   min-height: calc(100vh - 64px);
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #F8F9FA;
   padding-bottom: 80px; /* Space for mobile bottom nav */
 }
 
 .find-care-header {
-  background: linear-gradient(135deg, #1B75BB 0%, #00ADEE 50%, #8BC53F 100%);
+  background: #1B75BB;
   color: white;
   padding: clamp(2rem, 4vw, 3rem) 0;
   position: relative;

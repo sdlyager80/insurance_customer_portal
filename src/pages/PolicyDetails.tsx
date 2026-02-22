@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Chip } from '@mui/material';
 import Spinner from '../components/Spinner';
-import Badge from '../components/Badge';
 import type { Policy, Beneficiary } from '../types/policy';
 import { policyApi } from '../services/mockApi';
 import './PolicyDetails.css';
@@ -48,18 +48,18 @@ const PolicyDetails = () => {
     });
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusChipSx = (status: string) => {
     switch (status) {
       case 'active':
-        return 'green';
+        return { bgcolor: '#37A52620', borderColor: '#37A5264D' };
       case 'pending':
-        return 'yellow';
+        return { bgcolor: '#E8DE2320', borderColor: '#E8DE234D' };
       case 'lapsed':
-        return 'orange';
+        return { bgcolor: '#F6921E20', borderColor: '#F6921E4D' };
       case 'cancelled':
-        return 'red';
+        return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
       default:
-        return 'grey';
+        return { bgcolor: '#80828520', borderColor: '#8082854D' };
     }
   };
 
@@ -114,9 +114,10 @@ const PolicyDetails = () => {
       <div className="policy-hero">
         <div className="policy-hero-title">
           <h1>{policy.productName}</h1>
-          <Badge
+          <Chip
             label={policy.status.toUpperCase()}
-            color={getStatusColor(policy.status) as never}
+            size="small"
+            sx={{ ...getStatusChipSx(policy.status), color: '#000000', fontWeight: 600, border: '1px solid' }}
           />
         </div>
         <p className="policy-hero-number">{policy.policyNumber}</p>

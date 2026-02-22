@@ -14,7 +14,7 @@ export const mockPolicies: Policy[] = [
     paymentFrequency: 'monthly',
     nextPaymentDate: '2026-03-01',
     insured: {
-      firstName: 'John',
+      firstName: 'Sarah',
       lastName: 'Smith',
       dateOfBirth: '1985-06-15',
       address: {
@@ -24,7 +24,7 @@ export const mockPolicies: Policy[] = [
         zipCode: '78701'
       },
       phone: '(555) 123-4567',
-      email: 'john.smith@email.com'
+      email: 'sarah.smith@email.com'
     },
     beneficiaries: [
       {
@@ -55,7 +55,7 @@ export const mockPolicies: Policy[] = [
     paymentFrequency: 'quarterly',
     nextPaymentDate: '2026-03-15',
     insured: {
-      firstName: 'John',
+      firstName: 'Sarah',
       lastName: 'Smith',
       dateOfBirth: '1985-06-15',
       address: {
@@ -65,7 +65,7 @@ export const mockPolicies: Policy[] = [
         zipCode: '62701'
       },
       phone: '(555) 123-4567',
-      email: 'john.smith@email.com'
+      email: 'sarah.smith@email.com'
     }
   },
   {
@@ -81,7 +81,7 @@ export const mockPolicies: Policy[] = [
     paymentFrequency: 'monthly',
     nextPaymentDate: '2026-03-01',
     insured: {
-      firstName: 'John',
+      firstName: 'Sarah',
       lastName: 'Smith',
       dateOfBirth: '1985-06-15',
       address: {
@@ -91,7 +91,7 @@ export const mockPolicies: Policy[] = [
         zipCode: '62701'
       },
       phone: '(555) 123-4567',
-      email: 'john.smith@email.com'
+      email: 'sarah.smith@email.com'
     },
     coverages: [
       {
@@ -130,7 +130,7 @@ export const mockPolicies: Policy[] = [
     paymentFrequency: 'monthly',
     nextPaymentDate: '2026-03-01',
     insured: {
-      firstName: 'John',
+      firstName: 'Sarah',
       lastName: 'Smith',
       dateOfBirth: '1985-06-15',
       address: {
@@ -140,7 +140,7 @@ export const mockPolicies: Policy[] = [
         zipCode: '62701'
       },
       phone: '(555) 123-4567',
-      email: 'john.smith@email.com'
+      email: 'sarah.smith@email.com'
     },
     coverages: [
       {

@@ -1,4 +1,4 @@
-import Badge from './Badge';
+import { Chip } from '@mui/material';
 import type { CustomerAction } from '../types/policy';
 import './ActionAlert.css';
 
@@ -29,20 +29,19 @@ const ActionAlert = ({ action, onClick }: ActionAlertProps) => {
     }
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusChipSx = (status: string) => {
     switch (status) {
       case 'pending':
-        return 'yellow';
+        return { bgcolor: '#E8DE2320', borderColor: '#E8DE234D' };
       case 'in_review':
-        return 'blue';
+        return { bgcolor: '#1B75BB20', borderColor: '#1B75BB4D' };
       case 'approved':
-        return 'green';
       case 'completed':
-        return 'green';
+        return { bgcolor: '#37A52620', borderColor: '#37A5264D' };
       case 'rejected':
-        return 'red';
+        return { bgcolor: '#D02E2E20', borderColor: '#D02E2E4D' };
       default:
-        return 'grey';
+        return { bgcolor: '#80828520', borderColor: '#8082854D' };
     }
   };
 
@@ -56,9 +55,10 @@ const ActionAlert = ({ action, onClick }: ActionAlertProps) => {
             <h4 className="action-title">{action.title}</h4>
             <p className="action-policy">{action.policyNumber}</p>
           </div>
-          <Badge
+          <Chip
             label={action.status.replace('_', ' ').toUpperCase()}
-            color={getStatusColor(action.status) as any}
+            size="small"
+            sx={{ ...getStatusChipSx(action.status), color: '#000000', fontWeight: 600, border: '1px solid' }}
           />
         </div>
         <p className="action-description">{action.description}</p>

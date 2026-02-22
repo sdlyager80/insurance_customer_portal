@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -58,6 +58,14 @@ const BookingModal = ({ open, provider, onClose }: BookingModalProps) => {
   const [appointment, setAppointment] = useState<Appointment | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const dialogContentRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top whenever the active step changes
+  useEffect(() => {
+    if (dialogContentRef.current) {
+      dialogContentRef.current.scrollTop = 0;
+    }
+  }, [activeStep]);
 
   const handleNext = async () => {
     if (activeStep === steps.length - 2) {
@@ -178,6 +186,13 @@ END:VCALENDAR`;
       onClose={handleClose}
       maxWidth="md"
       fullWidth
+      TransitionProps={{
+        onEntered: () => {
+          if (dialogContentRef.current) {
+            dialogContentRef.current.scrollTop = 0;
+          }
+        },
+      }}
       PaperProps={{
         sx: {
           borderRadius: 2,
@@ -203,7 +218,7 @@ END:VCALENDAR`;
 
       <Divider />
 
-      <DialogContent sx={{ pt: 3 }}>
+      <DialogContent ref={dialogContentRef} sx={{ pt: 3 }}>
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
           {steps.map((label) => (
             <Step key={label}>
@@ -372,10 +387,9 @@ END:VCALENDAR`;
                     Visit Type
                   </Typography>
                   <Chip
-                    icon={visitType === 'telehealth' ? <VideoCall /> : <LocationOn />}
+                    icon={visitType === 'telehealth' ? <VideoCall sx={{ color: '#000000 !important' }} /> : <LocationOn sx={{ color: '#000000 !important' }} />}
                     label={visitType === 'telehealth' ? 'Telemedicine' : 'In-Person'}
-                    color={visitType === 'telehealth' ? 'success' : 'primary'}
-                    sx={{ mt: 0.5 }}
+                    sx={{ mt: 0.5, color: '#000000', fontWeight: 600, bgcolor: visitType === 'telehealth' ? '#37A52620' : '#1B75BB20', border: `1px solid ${visitType === 'telehealth' ? '#37A5264D' : '#1B75BB4D'}` }}
                   />
                 </Box>
 
@@ -430,15 +444,15 @@ END:VCALENDAR`;
               sx={{
                 p: 3,
                 mb: 3,
-                bgcolor: 'primary.50',
-                borderColor: 'primary.main',
+                bgcolor: '#1B75BB0D',
+                borderColor: '#1B75BB4D',
               }}
             >
               <Typography variant="caption" color="text.secondary" gutterBottom>
                 Confirmation Number
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mt: 1 }}>
-                <Typography variant="h4" fontWeight={700} color="primary.main">
+                <Typography variant="h4" fontWeight={700} color="#000000">
                   {appointment.confirmationNumber}
                 </Typography>
                 <IconButton
@@ -481,7 +495,7 @@ END:VCALENDAR`;
                 startIcon={<CalendarToday />}
                 onClick={addToCalendar}
                 fullWidth
-                sx={{ minHeight: 44 }}
+                sx={{ minHeight: 44, color: '#1B75BB', borderColor: '#1B75BB', '&:hover': { borderColor: '#155f99', color: '#155f99', bgcolor: '#1B75BB14' } }}
               >
                 Add to Calendar
               </Button>
@@ -510,13 +524,14 @@ END:VCALENDAR`;
                 variant="contained"
                 onClick={handleNext}
                 disabled={!isStepValid() || loading}
+                sx={{ bgcolor: '#1B75BB', '&:hover': { bgcolor: '#155f99' } }}
               >
                 {activeStep === steps.length - 2 ? 'Confirm Booking' : 'Next'}
               </Button>
             </Box>
           </>
         ) : (
-          <Button variant="contained" onClick={handleClose} fullWidth>
+          <Button variant="contained" onClick={handleClose} fullWidth sx={{ bgcolor: '#1B75BB', '&:hover': { bgcolor: '#155f99' } }}>
             Done
           </Button>
         )}
